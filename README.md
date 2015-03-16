@@ -33,7 +33,7 @@ This repository serves as a checklist for all the software I typically install o
       <td>Free</td>
     </tr>
     <tr>
-      <td><a href="https://download.mozilla.org/?product=firefox-aurora-latest-ssl&os=osx&lang=en-US"> target="_blank">FireFox Developer Edition</a></td>
+      <td><a href="https://download.mozilla.org/?product=firefox-aurora-latest-ssl&os=osx&lang=en-US" target="_blank">FireFox Developer Edition</a></td>
       <td>Developer version of FireFox web browser</td>
       <td>Free</td>
     </tr>
