@@ -18,6 +18,11 @@ This repository serves as a checklist for all the software I typically install o
       <td>Free</td>
     </tr>
     <tr>
+      <td><a href="http://www.alfredapp.com/" target="_blank">Alfred</a></td>
+      <td>Hotkey and program launcher, never use finder again!</td>
+      <td>Free</td>
+    </tr>    
+    <tr>
       <td><a href="https://itunes.apple.com/us/app/caffeine/id411246225" target="_blank">Caffeine</a></td>
       <td>Utility for disabling screen / machine sleep. Useful when running long presentations, etc.</td>
       <td>Free</td>
