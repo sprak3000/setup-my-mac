@@ -35,8 +35,8 @@ $ chsh -s /usr/local/bin/fish
 
 ### Fonts and Colors
 
-* (Solarized Dark theme for iTerm2)[http://iterm2colorschemes.com/]
-* (Inconsolata font)[http://www.levien.com/type/myfonts/inconsolata.html]
+* [Solarized Dark theme for iTerm2](http://iterm2colorschemes.com/)
+* [Inconsolata font](http://www.levien.com/type/myfonts/inconsolata.html)
 
 ## Essential Software
 
