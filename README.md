@@ -1,7 +1,37 @@
 # Setup My Mac
 
 ## Overview
-This repository serves as a checklist for all the software I typically install on a new Mac along with any configurations files, etc.
+This repository serves as a checklist for all the software I typically install on a new Mac, setup steps, and any configurations files, etc. needed.
+
+## Setup Steps
+
+### Install Homebrew
+
+[Homebrew](http://brew.sh/) is a package manager for OS X. Useful for managing all the command line software this developer needs. From the command line:
+
+```
+$ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+```
+
+### Install Packages via Homebrew
+
+```
+$ brew install fish
+$ brew install ack
+$ brew install dos2unix
+$ brew install git
+$ brew install rbenv
+$ brew install ssh-copy-id
+$ brew install wget
+```
+
+### Set Default Command Line Shell to `fish`
+
+```
+$ chsh -s /usr/local/bin/fish
+```
+
+## Essential Software
 
 <table>
   <thead>
@@ -38,6 +68,11 @@ This repository serves as a checklist for all the software I typically install o
       <td>Free</td>
     </tr>
     <tr>
+      <td><a href="http://fishshell.com/" target="_blank">Fish Shell</a></td>
+      <td>Command line shell (I install via Homebrew)</td>
+      <td>Free</td>
+    </tr>
+    <tr>
       <td><a href="http://fluidapp.com/" target="_blank">Fluid</a></td>
       <td>Turn web pages / web apps into stand-alone Mac app</td>
       <td>Free / Pay for more features</td>
@@ -65,6 +100,11 @@ This repository serves as a checklist for all the software I typically install o
     <tr>
       <td><a href="https://www.hipchat.com/downloads" target="_blank">HipChat</a></td>
       <td>Chat client</td>
+      <td>Free</td>
+    </tr>
+    <tr>
+      <td><a href="http://brew.sh/" target="_blank">Homebrew</a></td>
+      <td>Package manager for OS X</td>
       <td>Free</td>
     </tr>
     <tr>
