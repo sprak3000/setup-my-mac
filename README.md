@@ -135,6 +135,11 @@ $ chsh -s /usr/local/bin/fish
       <td>Annual License</td>
     </tr>
     <tr>
+      <td><a href="http://robomongo.org/" target="_blank">RoboMongo</a></td>
+      <td>MongoDB GUI client</td>
+      <td>Free</td>
+    </tr>
+    <tr>
       <td><a href="http://www.sequelpro.com/download" target="_blank">Sequel Pro</a></td>
       <td>MySQL GUI client</td>
       <td>Free</td>
