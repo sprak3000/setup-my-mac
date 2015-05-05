@@ -175,7 +175,7 @@ $ chsh -s /usr/local/bin/fish
       <td>Free</td>
     </tr>
     <tr>
-      <td><a href="https://www.virtualbox.org/wiki/Downloads target="_blank">VirtualBox</a></td>
+      <td><a href="https://www.virtualbox.org/wiki/Downloads" target="_blank">VirtualBox</a></td>
       <td>Virtual machines for use with Vagrant</td>
       <td>Free</td>
     </tr>
