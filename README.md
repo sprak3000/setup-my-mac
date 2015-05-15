@@ -24,6 +24,7 @@ $ brew install rbenv
 $ brew install ssh-copy-id
 $ brew install wget
 $ brew install autojump
+$ brew install caskroom/cask/brew-cask
 $ curl -L https://github.com/bpinto/oh-my-fish/raw/master/tools/install.fish | fish
 ```
 
@@ -112,6 +113,11 @@ $ chsh -s /usr/local/bin/fish
     <tr>
       <td><a href="http://brew.sh/" target="_blank">Homebrew</a></td>
       <td>Package manager for OS X</td>
+      <td>Free</td>
+    </tr>
+    <tr>
+      <td><a href="http://caskroom.io/" target="_blank">Homebrew Cask</a></td>
+      <td>Install OS X software (`DMG` based) from the command line</td>
       <td>Free</td>
     </tr>
     <tr>
