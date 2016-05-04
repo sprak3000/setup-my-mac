@@ -136,6 +136,11 @@ $ chsh -s /usr/local/bin/fish
       <td>Free</td>
     </tr>
     <tr>
+      <td><a href="https://github.com/Alex7Kom/nvm-fish" target="_blank">Node Version Manager for fish shell</a></td>
+      <td>Fish shell compatible version of nvm</td>
+      <td>Free</td>
+    </tr>
+    <tr>
       <td><a href="https://www.jetbrains.com/phpstorm/download/" target="_blank">PhpStorm</a></td>
       <td>My IDE of choice for PHP / JS programming</td>
       <td>Annual License</td>
