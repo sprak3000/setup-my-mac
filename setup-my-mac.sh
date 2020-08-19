@@ -21,7 +21,7 @@ brewFormulae=("wget" "autojump" "youtube-dl" "ssh-copy-id" "fish")
 for formula in "${brewFormulae[@]}"; do
   if ! formula_loc="$(type -p "brew")" || [[ -z $formula_loc ]]; then
     echo ">>>> Installing Homebrew formula $formula"
-    #brew install $formula
+    brew install $formula
   else
     echo ">>>> Homebrew formula $formula already installed"
   fi
@@ -34,7 +34,7 @@ if [ 1 = "$(grep --count fish /etc/shells)" ]; then
   echo ">>>> fish shell already in list of allowed shells"
 else
   echo ">>>> Adding fish shell to list of allowed shells"
-  #echo "/usr/local/bin/fish" | sudo tee -a /etc/shells
+  echo "/usr/local/bin/fish" | sudo tee -a /etc/shells
 fi
 
 
@@ -44,7 +44,7 @@ if [ 1 = "$(dscl . -read $userdir UserShell | grep --count fish)" ]; then
   echo ">>>> fish shell already the default shell"
 else
   echo ">>>> Making fish shell the default shell"
-  #chsh -s /usr/local/bin/fish
+  chsh -s /usr/local/bin/fish
 fi
 
 
@@ -52,7 +52,7 @@ fi
 
 if ! omf_loc="$(fish --command='type -p "omf"')" || [[ -z $omf_loc ]]; then
   echo ">>>> Installing oh-my-fish"
-  #curl -L https://get.oh-my.fish | fish
+  curl -L https://get.oh-my.fish | fish
 else
   echo ">>>> oh-my-fish already installed"
 fi
@@ -67,7 +67,7 @@ for package in "${omfPackages[@]}"; do
     echo ">>>> oh-my-fish package $package already installed"
   else
     echo ">>>> Installing oh-my-fish package $package"
-    #omf install $package
+    omf install $package
   fi
 done
 
@@ -78,7 +78,7 @@ if [ 1 = "$(fish --command='omf theme' | grep default | head -n 1 | grep --count
   echo ">>>> fish shell theme is already gitstatus"
 else
   echo ">>>> Setting fish shell theme to gitstatus"
-  #fish --command="omf theme gitstatus"
+  fish --command="omf theme gitstatus"
 fi
 
 
@@ -91,7 +91,7 @@ for formula in "${caskFormulae[@]}"; do
     echo ">>>> Homebrew cask formula $formula already installed"
   else
     echo ">>>> Installing Homebrew cask formula $formula"
-    #brew cask install $formula
+    brew cask install $formula
   fi
 done
 
@@ -102,14 +102,21 @@ if [ -f "$userdir/.vimrc" ]; then
   echo ">>>> $userdir/.vimrc already exists"
 else
   echo ">>>> Creating $userdir/.vimrc"
-  #cp ./dotfiles/gvimrc $userdir/.vimrc
+  cp ./dotfiles/gvimrc $userdir/.vimrc
 fi
 
 if [ -f "$userdir/.gvimrc" ]; then
   echo ">>>> $userdir/.gvimrc already exists"
 else
   echo ">>>> Creating $userdir/.gvimrc"
-  #cp ./dotfiles/gvimrc $userdir/.gvimrc
+  cp ./dotfiles/gvimrc $userdir/.gvimrc
+fi
+
+if [ -f "$userdir/.config/fish/config.fish" ]; then
+  echo ">>>> $userdir/.config/fish/config.fish already exists"
+else
+  echo ">>>> Creating $userdir/.config/fish/config.fish"
+  cp ./dotfiles/config.fish $userdir/.config/fish/config.fish
 fi
 
 
@@ -119,7 +126,7 @@ if [ -d "$userdir/github.com" ]; then
   echo ">>>> $userdir/github.com already exists"
 else
   echo ">>>> Creating $userdir/github.com"
-  #echo "$userdir/github.com" | mkdir
+  echo "$userdir/github.com" | mkdir
 fi
 
 
@@ -138,4 +145,3 @@ manualInstalls=("GoLand" "PHPStorm" "FileZilla" "H+R Block Tax" "Quicken")
 for install in "${manualInstalls[@]}"; do
   echo -e "\t$install"
 done
-
