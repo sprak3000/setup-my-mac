@@ -119,6 +119,34 @@ else
   cp ./dotfiles/config.fish $userdir/.config/fish/config.fish
 fi
 
+if [ -d "$userdir/.hammerspoon" ]; then
+  echo ">>>> $userdir/.hammerspoon already exists"
+else
+  echo ">>>> Creating $userdir/.hammerspoon"
+  mkdir $userdir/.hammerspoon
+fi
+
+if [ -f "$userdir/.hammerspoon/init.lua" ]; then
+  echo ">>>> $userdir/.hammerspoon/init.lua already exists"
+else
+  echo ">>>> Creating $userdir/.hammerspoon/init.lua"
+  cp ./dotfiles/hammerspoon/init.lua $userdir/.hammerspoon/init.lua
+fi
+
+if [ -d "$userdir/.hammerspoon/Spoons" ]; then
+  echo ">>>> $userdir/.hammerspoon/Spoons already exists"
+else
+  echo ">>>> Creating $userdir/.hammerspoon/Spoons"
+  mkdir $userdir/.hammerspoon/Spoons
+fi
+
+if [ -d "$userdir/.hammerspoon/Spoons/ArrangeDesktop.spoon" ]; then
+  echo ">>>> $userdir/.hammerspoon/Spoons/ArrangeDesktop.spoon already exists"
+else
+  echo ">>>> Creating $userdir/.hammerspoon/Spoons/ArrangeDesktop.spoon"
+  cp -R ./dotfiles/hammerspoon/Spoons/ArrangeDesktop $userdir/.hammerspoon/Spoons/
+fi
+
 
 #### Setting up default github.com directory
 
@@ -126,7 +154,7 @@ if [ -d "$userdir/github.com" ]; then
   echo ">>>> $userdir/github.com already exists"
 else
   echo ">>>> Creating $userdir/github.com"
-  echo "$userdir/github.com" | mkdir
+  mkdir $userdir/github.com
 fi
 
 

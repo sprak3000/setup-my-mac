@@ -52,10 +52,12 @@ end
 --- * arrangement - table of arrangement data
 function obj:arrange(arrangement)
     for monitorUUID, monitorDetails in pairs(obj.arrangements[arrangement]) do
-        for appName, position in pairs(monitorDetails['apps']) do
-            app = hs.application.get(appName)
-            if app ~= nil then
-                obj:_positionApp(app, appName, monitorUUID, position)
+        if hs.screen.find(monitorUUID) ~= nil then
+            for appName, position in pairs(monitorDetails['apps']) do
+                app = hs.application.get(appName)
+                if app ~= nil then
+                    obj:_positionApp(app, appName, monitorUUID, position)
+                end
             end
         end
     end
