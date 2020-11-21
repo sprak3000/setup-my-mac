@@ -95,6 +95,7 @@ prevent trying to inst all it again.
 | [BitBar](https://github.com/matryer/bitbar) | Put the output of a script into your menu bar | Homebrew Cask |
 | [iCalBuddy](https://hasseg.org/icalBuddy/) | Command-line utility that can be used to get lists of events and tasks/to-do's from the OS X calendar database | Homebrew |
 | [rbenv](https://github.com/rbenv/rbenv) | Manage installed versions of Ruby on your machine | Homebrew |
+| [Hammerspoon](https://www.hammerspoon.org/) | LUA based automation tool | Homebrew Cask |
 
 ### Alternative Terminals, Shells, Fonts
 | Name | Description | Installation |
