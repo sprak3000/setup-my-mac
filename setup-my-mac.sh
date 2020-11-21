@@ -84,7 +84,7 @@ fi
 
 #### Install software from Homebrew casks
 
-caskFormulae=("jumpcut" "caffeine" "iterm2" "firefox-developer-edition" "steam" "macvim" "veracrypt" "gog-galaxy" "twitch" "vlc" "discord" "homebrew/cask-fonts/font-jetbrains-mono" "flux" "bitbar" "lastpass")
+caskFormulae=("jumpcut" "caffeine" "iterm2" "firefox-developer-edition" "steam" "macvim" "veracrypt" "gog-galaxy" "twitch" "vlc" "discord" "homebrew/cask-fonts/font-jetbrains-mono" "flux" "hammerspoon" "bitbar" "lastpass")
 
 for formula in "${caskFormulae[@]}"; do
   if [ 1 = "$(brew cask list | grep --count $formula)" ]; then
