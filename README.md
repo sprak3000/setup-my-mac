@@ -88,10 +88,13 @@ prevent trying to inst all it again.
 | [Jumpcut](https://github.com/snark/jumpcut) | Clipboard manager | Homebrew Cask |
 | [Caffeine](https://intelliscapesolutions.com/apps/caffeine) | Prevents your Mac from automatically going to sleep | Homebrew Cask |
 | [VeraCrypt](https://www.veracrypt.fr/en/Home.html) | Disk encryption software | Homebrew Cask |
-| [LastPass](https://www.lastpass.com/) | Password manager | App Store |
+| [LastPass](https://www.lastpass.com/) | Password manager | Homebrew Cask |
 | [FileZilla](https://filezilla-project.org/) | FTP client | Manual |
 | [f.lux](https://justgetflux.com/) | Adjust the screen colors based on time of day | Homebrew Cask |
 | [MacVIM](https://macvim-dev.github.io/macvim/) | Text editor | Homebrew Cask |
+| [BitBar](https://github.com/matryer/bitbar) | Put the output of a script into your menu bar | Homebrew Cask |
+| [iCalBuddy](https://hasseg.org/icalBuddy/) | Command-line utility that can be used to get lists of events and tasks/to-do's from the OS X calendar database | Homebrew |
+| [rbenv](https://github.com/rbenv/rbenv) | Manage installed versions of Ruby on your machine | Homebrew |
 
 ### Alternative Terminals, Shells, Fonts
 | Name | Description | Installation |
