@@ -16,7 +16,7 @@ fi
 
 #### Install Homebrew formulae
 
-brewFormulae=("wget" "autojump" "youtube-dl" "ssh-copy-id" "fish")
+brewFormulae=("wget" "autojump" "youtube-dl" "ssh-copy-id" "fish" "ical-buddy rbenv")
 
 for formula in "${brewFormulae[@]}"; do
   if ! formula_loc="$(type -p "brew")" || [[ -z $formula_loc ]]; then
@@ -84,7 +84,7 @@ fi
 
 #### Install software from Homebrew casks
 
-caskFormulae=("jumpcut" "caffeine" "iterm2" "firefox-developer-edition" "steam" "macvim" "veracrypt" "gog-galaxy" "twitch" "vlc" "discord" "homebrew/cask-fonts/font-jetbrains-mono" "flux")
+caskFormulae=("jumpcut" "caffeine" "iterm2" "firefox-developer-edition" "steam" "macvim" "veracrypt" "gog-galaxy" "twitch" "vlc" "discord" "homebrew/cask-fonts/font-jetbrains-mono" "flux" "hammerspoon" "bitbar" "lastpass")
 
 for formula in "${caskFormulae[@]}"; do
   if [ 1 = "$(brew cask list | grep --count $formula)" ]; then
@@ -102,21 +102,21 @@ if [ -f "$userdir/.vimrc" ]; then
   echo ">>>> $userdir/.vimrc already exists"
 else
   echo ">>>> Creating $userdir/.vimrc"
-  cp ./dotfiles/gvimrc $userdir/.vimrc
+  cp ./dotfiles/macvim/gvimrc $userdir/.vimrc
 fi
 
 if [ -f "$userdir/.gvimrc" ]; then
   echo ">>>> $userdir/.gvimrc already exists"
 else
   echo ">>>> Creating $userdir/.gvimrc"
-  cp ./dotfiles/gvimrc $userdir/.gvimrc
+  cp ./dotfiles/macvim/gvimrc $userdir/.gvimrc
 fi
 
 if [ -f "$userdir/.config/fish/config.fish" ]; then
   echo ">>>> $userdir/.config/fish/config.fish already exists"
 else
   echo ">>>> Creating $userdir/.config/fish/config.fish"
-  cp ./dotfiles/config.fish $userdir/.config/fish/config.fish
+  cp ./dotfiles/fish-shell/config.fish $userdir/.config/fish/config.fish
 fi
 
 if [ -d "$userdir/.hammerspoon" ]; then
@@ -147,6 +147,12 @@ else
   cp -R ./dotfiles/hammerspoon/Spoons/ArrangeDesktop $userdir/.hammerspoon/Spoons/
 fi
 
+if [ -d "$userdir/.bitbar" ]; then
+  echo ">>>> $userdir/.bitbar already exists"
+else
+  echo ">>>> Creating $userdir/.bitbar"
+  cp ./dotfiles/bitbar $userdir
+fi
 
 #### Setting up default github.com directory
 
@@ -162,7 +168,7 @@ fi
 
 echo ">>>> Software to install through App Store >>>>"
 
-appStoreInstalls=("LastPass" "Slack" "TweetDeck" "XCode")
+appStoreInstalls=("Slack" "TweetDeck" "XCode")
 for install in "${appStoreInstalls[@]}"; do
   echo -e "\t$install"
 done
