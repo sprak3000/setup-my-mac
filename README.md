@@ -2,7 +2,7 @@
 
 ## Overview
 This repository holds my scripts, configuration files, notes, etc. for the rare occasion of setting up a new Mac for
-myself. You will fine in here:
+myself. You will find in here:
 * My customizations to various system preferences
 * A script to 
   * Install a considerable amount of software I use
