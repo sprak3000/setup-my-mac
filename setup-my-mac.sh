@@ -143,8 +143,10 @@ fi
 if [ -d "$userdir/.hammerspoon/Spoons/ArrangeDesktop.spoon" ]; then
   echo ">>>> $userdir/.hammerspoon/Spoons/ArrangeDesktop.spoon already exists"
 else
-  echo ">>>> Creating $userdir/.hammerspoon/Spoons/ArrangeDesktop.spoon"
-  cp -R ./dotfiles/hammerspoon/Spoons/ArrangeDesktop $userdir/.hammerspoon/Spoons/
+  echo ">>>> Downloading and installing $userdir/.hammerspoon/Spoons/ArrangeDesktop.spoon"
+  curl -L -o /tmp/ArrangeDesktop.spoon.zip https://github.com/Hammerspoon/Spoons/raw/master/Spoons/ArrangeDesktop.spoon.zip
+  unzip /tmp/ArrangeDesktop.spoon.zip -d "$userdir/.hammerspoon/Spoons/"
+  rm /tmp/ArrangeDesktop.spoon.zip
 fi
 
 if [ -d "$userdir/.bitbar" ]; then
