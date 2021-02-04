@@ -16,10 +16,10 @@ fi
 
 #### Install Homebrew formulae
 
-brewFormulae=("wget" "autojump" "youtube-dl" "ssh-copy-id" "fish" "ical-buddy rbenv")
+brewFormulae=("wget" "autojump" "youtube-dl" "ssh-copy-id" "fish" "ical-buddy" "rbenv" "lastpass-cli")
 
 for formula in "${brewFormulae[@]}"; do
-  if ! formula_loc="$(type -p "brew")" || [[ -z $formula_loc ]]; then
+  if ! formula_loc="$(type -p $formula)" || [[ -z $formula_loc ]]; then
     echo ">>>> Installing Homebrew formula $formula"
     brew install $formula
   else
@@ -84,14 +84,14 @@ fi
 
 #### Install software from Homebrew casks
 
-caskFormulae=("jumpcut" "caffeine" "iterm2" "firefox-developer-edition" "steam" "macvim" "veracrypt" "gog-galaxy" "twitch" "vlc" "discord" "homebrew/cask-fonts/font-jetbrains-mono" "flux" "hammerspoon" "bitbar" "lastpass")
+caskFormulae=("jumpcut" "caffeine" "iterm2" "firefox-developer-edition" "steam" "slack" "macvim" "veracrypt" "gog-galaxy" "twitch" "vlc" "discord" "homebrew/cask-fonts/font-jetbrains-mono" "flux" "hammerspoon" "bitbar" "lastpass" "goland" "phpstorm")
 
 for formula in "${caskFormulae[@]}"; do
-  if [ 1 = "$(brew cask list | grep --count $formula)" ]; then
+  if [ 1 = "$(brew list --cask | grep --count $formula)" ]; then
     echo ">>>> Homebrew cask formula $formula already installed"
   else
     echo ">>>> Installing Homebrew cask formula $formula"
-    brew cask install $formula
+    brew install --cask $formula
   fi
 done
 
@@ -170,14 +170,14 @@ fi
 
 echo ">>>> Software to install through App Store >>>>"
 
-appStoreInstalls=("Slack" "TweetDeck" "XCode")
+appStoreInstalls=("TweetDeck" "XCode")
 for install in "${appStoreInstalls[@]}"; do
   echo -e "\t$install"
 done
 
 echo ">>>> Software to install manually >>>>"
 
-manualInstalls=("GoLand" "PHPStorm" "FileZilla" "H+R Block Tax" "Quicken")
+manualInstalls=("FileZilla" "H+R Block Tax" "Quicken")
 for install in "${manualInstalls[@]}"; do
   echo -e "\t$install"
 done
