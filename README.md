@@ -1,5 +1,4 @@
 # Setup My Mac
-
 ## Overview
 This repository holds my scripts, configuration files, notes, etc. for the rare occasion of setting up a new Mac for
 myself. You will find in here:
@@ -10,36 +9,33 @@ myself. You will find in here:
   * Setup my terminal theme
 * Various dotfiles and configuration files I use
 
-**Current OS X Version Used:** `Catalina 10.15.X`
+**Current OS X Version Used:** `Big Sur 11.12.1` (**NOTE:** The run was prior to the check-in of the `Brewfile` and use of `mas-cli` and `brew bundle`. Both are untested currently.)
 
 ## Initial Setup
 I follow these steps immediately after I first boot up a new Mac and go through the initial setup it presents:
 * Apply any system software updates.
 * Apply any App Store updates for pre-installed software.
 * Remove any unwanted applications from the dock.
-* Install the following software from the App Store: 
-  * [Lastpass](https://www.lastpass.com/) 
-  * [Slack](https://slack.com/)
-  * [XCode](https://apps.apple.com/us/app/xcode/id497799835)
-  * [TweetDeck](https://tweetdeck.twitter.com/)
 
 ## System Preferences
 Here are the various customizations I make to the default system preferences.
 
 ### General
-* Turn off `Use font smoothing when available`.
+* Turn off `Use font smoothing when available`. (Catalina and lower)
 * Set `Appearance` to `Dark`.
 
 ### Desktop & Screen Saver
-* Create the directory `~/Pictures/wallpaper`.
-* Add the directory to the `Desktop` folder list and select it.
-* Set `Desktop` to `Change picture: Every 30 minutes` and set it to `Random Order`.
+* Add the `~/Pictures/wallpaper` directory to the `Folders` list and select it.
+* Check `Change picture` and set the drop-down to`Every 30 minutes`. Repeat for each monitor attached.
+* Check `Random Order`. Repeat for each monitor attached.
 
-### Dock
+### Dock & Menu Bar
 * Adjust `Size` to feel comfortable based on the screen size.
 * Set `Minimize windows using` to `Scale effect`.
 * Turn off `Automatically hide and show the Dock`.
 * Turn off `Show recent applications in Dock`.
+* Turn off `Show in Menu Bar` in `Do No Disturb`.
+* Turn on `Show Percentage` in `Battery`.
 
 ### Siri
 * Turn off `Enable Siri`.
@@ -52,7 +48,10 @@ Here are the various customizations I make to the default system preferences.
 ### Network
 * `Wi-Fi` > `Advanced` > `DNS`
   * Clear out any existing entries in `DNS Servers`.
-  * Add these DNS servers instead in this order: `1.1.1.1`, `8.8.8.8`, `8.8.4.4`.
+  * Add these DNS servers instead in this order:
+    * `1.1.1.1`
+    * `8.8.8.8`
+    * `8.8.4.4`
   
 ### Sharing
 * Fill in `Computer Name` with something cool.
@@ -65,13 +64,12 @@ Here are the various customizations I make to the default system preferences.
 
 This `bash` script performs the following tasks in order:
 * Install [Homebrew](https://brew.sh/).
-* Use Homebrew to install various system utilities and [fish shell](https://fishshell.com/).
+* Use Homebrew to automatically install various software you would otherwise have to manually install (see `Brewfile` for list).
 * Setup fish shell to be the default shell.
 * Install the [oh-my-fish](https://github.com/oh-my-fish/oh-my-fish) package manager.
 * Use oh-my-fish to install any fish shell packages and the `gitstatus` theme.
-* Use Homebrew to automatically install various software you would otherwise have to manually install.
-* Create the directory `~/github.com`.
-* Remind me of any other software I need to manually download and install or install from the App Store.
+* Create the directories `~/github.com`, `~/Pictures/wallpapers`.
+* Remind me of any other software I need to manually download and install.
 
 The script endeavors to only perform a step if necessary. e.g., It attempts to detect already installed software to
 prevent trying to inst all it again.

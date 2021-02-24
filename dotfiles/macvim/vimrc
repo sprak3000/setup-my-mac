@@ -1,2 +1,4 @@
 let macvim_skip_colorscheme=1
+colorscheme slate
+set guifont=JetBrains\ Mono\ Regular:h16
 set number
