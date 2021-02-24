@@ -40,7 +40,7 @@ arrangeDesktop.arrangements = {
             }
         }
     },
-    ['Promoboxx'] = {
+    ['Home Office'] = {
         ['665DBF0A-40D5-7BE2-8B58-64350483BC8B'] = {
             ['Monitor Name'] = 'Macbook Pro',
             ['apps'] = {
