@@ -17,7 +17,7 @@ cask "jumpcut"
 cask "caffeine"
 cask "flux"
 cask "hammerspoon"
-cask "bitbar"
+cask "xbar"
 cask "veracrypt"
 
 # Install fonts.
