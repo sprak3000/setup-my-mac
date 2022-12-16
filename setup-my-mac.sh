@@ -73,6 +73,13 @@ else
   cp ./dotfiles/macvim/gvimrc "$userdir/.gvimrc"
 fi
 
+if [ -f "$userdir/.asdfrc" ]; then
+  echo ">>>> $userdir/.asdfrc already exists"
+else
+  echo ">>>> Creating $userdir/.asdfrc"
+  cp ./dotfiles/.asdfrc "$userdir/.asdfrc"
+fi
+
 if [ -f "$userdir/.config/fish/config.fish" ]; then
   echo ">>>> $userdir/.config/fish/config.fish already exists"
 else

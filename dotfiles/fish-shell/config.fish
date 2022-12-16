@@ -6,3 +6,6 @@ status --is-interactive; and source (rbenv init -|psub)
 
 # Add global rbenv ruby to PATH
 set PATH $HOME/.gem/ruby/2.7.0/bin $PATH
+
+# Setup asdf
+source /usr/local/opt/asdf/libexec/asdf.fish
