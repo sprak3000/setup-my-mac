@@ -9,3 +9,7 @@ set PATH $HOME/.gem/ruby/2.7.0/bin $PATH
 
 # Setup asdf
 source /usr/local/opt/asdf/libexec/asdf.fish
+
+### Aliases ###
+# Empty git commit
+alias emptycommit='git commit -m "test ci" --allow-empty'
