@@ -110,11 +110,11 @@ else
   rm /tmp/ArrangeDesktop.spoon.zip
 fi
 
-if [ -d "$userdir/.bitbar" ]; then
-  echo ">>>> $userdir/.bitbar already exists"
+if [ -d "$userdir/.xbar" ]; then
+  echo ">>>> $userdir/.xbar already exists"
 else
-  echo ">>>> Creating $userdir/.bitbar"
-  mkdir "$userdir/.bitbar"
+  echo ">>>> Creating $userdir/.xbar"
+  ln -s ~/Library/Application\ Support/xbar/plugins .xbar
 fi
 
 #### Create github.com directory ####
