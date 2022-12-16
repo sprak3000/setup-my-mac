@@ -34,7 +34,6 @@ mas "TweetDeck by Twitter", id: 485812721
 # Install gaming clients.
 cask "gog-galaxy"
 cask "steam"
-cask "twitch"
 
 # Install video tools.
 cask "vlc"
