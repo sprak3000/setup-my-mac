@@ -29,7 +29,7 @@ cask "homebrew/cask-versions/firefox-developer-edition"
 # Install chat and social media clients.
 cask "slack"
 cask "discord"
-mas "TweetDeck by Twitter", id: 485812721
+cask "tweeten"
 
 # Install gaming clients.
 cask "gog-galaxy"
@@ -41,6 +41,7 @@ cask "vlc"
 # Install programming tools.
 cask "goland"
 cask "phpstorm"
+cask "webstorm"
 cask "datagrip"
 cask "macvim"
 cask "iterm2"
