@@ -59,47 +59,47 @@ else
 fi
 
 #### Install dotfiles ####
-if [ -f "$userdir/.vimrc" ]; then
-  echo ">>>> $userdir/.vimrc already exists"
-else
-  echo ">>>> Creating $userdir/.vimrc"
-  cp ./dotfiles/macvim/gvimrc "$userdir/.vimrc"
-fi
+#if [ -f "$userdir/.vimrc" ]; then
+#  echo ">>>> $userdir/.vimrc already exists"
+#else
+#  echo ">>>> Creating $userdir/.vimrc"
+#  cp ./dotfiles/macvim/gvimrc "$userdir/.vimrc"
+#fi
 
-if [ -f "$userdir/.gvimrc" ]; then
-  echo ">>>> $userdir/.gvimrc already exists"
-else
-  echo ">>>> Creating $userdir/.gvimrc"
-  cp ./dotfiles/macvim/gvimrc "$userdir/.gvimrc"
-fi
+#if [ -f "$userdir/.gvimrc" ]; then
+#  echo ">>>> $userdir/.gvimrc already exists"
+#else
+#  echo ">>>> Creating $userdir/.gvimrc"
+#  cp ./dotfiles/macvim/gvimrc "$userdir/.gvimrc"
+#fi
 
-if [ -f "$userdir/.asdfrc" ]; then
-  echo ">>>> $userdir/.asdfrc already exists"
-else
-  echo ">>>> Creating $userdir/.asdfrc"
-  cp ./dotfiles/.asdfrc "$userdir/.asdfrc"
-fi
+#if [ -f "$userdir/.asdfrc" ]; then
+#  echo ">>>> $userdir/.asdfrc already exists"
+#else
+#  echo ">>>> Creating $userdir/.asdfrc"
+#  cp ./dotfiles/.asdfrc "$userdir/.asdfrc"
+#fi
 
-if [ -f "$userdir/.config/fish/config.fish" ]; then
-  echo ">>>> $userdir/.config/fish/config.fish already exists"
-else
-  echo ">>>> Creating $userdir/.config/fish/config.fish"
-  cp ./dotfiles/fish-shell/config.fish "$userdir/.config/fish/config.fish"
-fi
+#if [ -f "$userdir/.config/fish/config.fish" ]; then
+#  echo ">>>> $userdir/.config/fish/config.fish already exists"
+#else
+#  echo ">>>> Creating $userdir/.config/fish/config.fish"
+#  cp ./dotfiles/fish-shell/config.fish "$userdir/.config/fish/config.fish"
+#fi
 
-if [ -d "$userdir/.hammerspoon" ]; then
-  echo ">>>> $userdir/.hammerspoon already exists"
-else
-  echo ">>>> Creating $userdir/.hammerspoon"
-  mkdir "$userdir/.hammerspoon"
-fi
-
-if [ -f "$userdir/.hammerspoon/init.lua" ]; then
-  echo ">>>> $userdir/.hammerspoon/init.lua already exists"
-else
-  echo ">>>> Creating $userdir/.hammerspoon/init.lua"
-  cp ./dotfiles/hammerspoon/init.lua "$userdir/.hammerspoon/init.lua"
-fi
+#if [ -d "$userdir/.hammerspoon" ]; then
+#  echo ">>>> $userdir/.hammerspoon already exists"
+#else
+#  echo ">>>> Creating $userdir/.hammerspoon"
+#  mkdir "$userdir/.hammerspoon"
+#fi
+#
+#if [ -f "$userdir/.hammerspoon/init.lua" ]; then
+#  echo ">>>> $userdir/.hammerspoon/init.lua already exists"
+#else
+#  echo ">>>> Creating $userdir/.hammerspoon/init.lua"
+#  cp ./dotfiles/hammerspoon/init.lua "$userdir/.hammerspoon/init.lua"
+#fi
 
 if [ -d "$userdir/.hammerspoon/Spoons" ]; then
   echo ">>>> $userdir/.hammerspoon/Spoons already exists"
@@ -141,12 +141,12 @@ else
 fi
 
 #### Parting words
-echo ">>>> Software to install through App Store >>>>"
-
-appStoreInstalls=("XCode")
-for install in "${appStoreInstalls[@]}"; do
-  echo -e "\t$install"
-done
+#echo ">>>> Software to install through App Store >>>>"
+#
+#appStoreInstalls=("XCode")
+#for install in "${appStoreInstalls[@]}"; do
+#  echo -e "\t$install"
+#done
 
 echo ">>>> Software to install manually >>>>"
 
