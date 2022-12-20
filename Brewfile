@@ -5,6 +5,7 @@ brew "mas"
 brew "fish"
 
 # Install utilities.
+brew "chezmoi"
 brew "wget"
 brew "autojump"
 brew "youtube-dl"
@@ -45,4 +46,4 @@ cask "webstorm"
 cask "datagrip"
 cask "macvim"
 cask "iterm2"
-mas "Xcode", id: 497799835
+#mas "Xcode", id: 497799835
