@@ -87,7 +87,7 @@ if [ -d "$userdir/.xbar" ]; then
   echo ">>>> $userdir/.xbar already exists"
 else
   echo ">>>> Creating $userdir/.xbar"
-  ln -s ~/Library/Application\ Support/xbar/plugins .xbar
+  ln -s ~/Library/Application\ Support/xbar/plugins ~/.xbar
 fi
 
 #### Create github.com directory ####
