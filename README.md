@@ -10,7 +10,7 @@ myself. You will find in here:
   - Install a considerable amount of software I use
   - Remind of software I need to install manually
   - Setup my terminal theme
-  - Setup various dotfiles and configuration files I use
+  - Setup various dotfiles and configuration files I use via [chezmoi](https://www.chezmoi.io).
 
 ## Initial Setup
 
@@ -92,6 +92,7 @@ This `bash` script performs the following tasks in order:
 - Use oh-my-fish to install any fish shell packages and the `gitstatus` theme.
 - Create the directories `~/github.com`, `~/Pictures/wallpapers`.
 - Remind me of any other software I need to manually download and install.
+- Use [chezmoi](https://www.chezmoi.io) to install dotfiles and configuration files.
 
 The script endeavors to only perform a step if necessary. e.g., It attempts to detect already installed software to
 prevent trying to inst all it again.
@@ -119,6 +120,7 @@ prevent trying to inst all it again.
 |         [iCalBuddy](https://hasseg.org/icalBuddy/)          | Command-line utility that can be used to get lists of events and tasks/to-do's from the OS X calendar database |                                              Homebrew                                              |
 |           [rbenv](https://github.com/rbenv/rbenv)           | Manage installed versions of Ruby on your machine                                                              |                                              Homebrew                                              |
 |         [Hammerspoon](https://www.hammerspoon.org/)         | LUA based automation tool                                                                                      |                                           Homebrew Cask                                            |
+|              [chezmoi](https://www.chezmoi.io)              | Manage your dotfiles across multiple diverse machines, securely.                                               |                                              Homebrew                                              |
 
 ### Alternative Terminals, Shells, Fonts
 
