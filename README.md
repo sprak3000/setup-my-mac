@@ -1,6 +1,7 @@
 # Setup My Mac
 
-## Overview
+- **Current Silicon Used:** Apple M1
+- **Current OS X Version Used:** `Ventura 13.1`
 
 This repository holds my scripts, configuration files, notes, etc. for the rare occasion of setting up a new Mac for
 myself. You will find in here:
@@ -9,9 +10,7 @@ myself. You will find in here:
   - Install a considerable amount of software I use
   - Remind of software I need to install manually
   - Setup my terminal theme
-- Various dotfiles and configuration files I use
-
-**Current OS X Version Used:** `Big Sur 11.12.1` (**NOTE:** The run was prior to the check-in of the `Brewfile` and use of `mas-cli` and `brew bundle`. Both are untested currently.)
+  - Setup various dotfiles and configuration files I use
 
 ## Initial Setup
 
@@ -26,7 +25,21 @@ Here are the various customizations I make to the default system preferences.
 
 ### General
 
-- Turn off `Use font smoothing when available`. (Catalina and lower)
+#### Date & Time
+
+- Turn on `24-hour time`. 
+
+#### Language & Region
+ 
+- Set `First day of week` to `Sunday`.
+- Set `Date format` to `YYYY-MM-DD`.
+
+#### Sharing
+
+- `Local hostname` > `Edit` and provide a better hostname.
+
+### Appearance 
+
 - Set `Appearance` to `Dark`.
 
 ### Desktop & Screen Saver
@@ -35,38 +48,35 @@ Here are the various customizations I make to the default system preferences.
 - Check `Change picture` and set the drop-down to`Every 30 minutes`. Repeat for each monitor attached.
 - Check `Random Order`. Repeat for each monitor attached.
 
-### Dock & Menu Bar
+### Desktop & Dock
 
 - Adjust `Size` to feel comfortable based on the screen size.
 - Set `Minimize windows using` to `Scale effect`.
 - Turn off `Automatically hide and show the Dock`.
 - Turn off `Show recent applications in Dock`.
-- Turn off `Show in Menu Bar` in `Do No Disturb`.
-- Turn on `Show Percentage` in `Battery`.
 
-### Siri
+### Control Center
 
-- Turn off `Enable Siri`.
+- Set `Bluetooth` to `Show in Menu Bar`.
+- Set `Focus` to `Always Show in Menu Bar`.
+- Turn on `Battery > Show Percentage`.
+- Set `Menu Bar Only > Spotlight` to `Don't Show in Menu Bar`.
+- Set `Menu Bar Only > Siri` to `Don't Show in Menu Bar`.
+- Turn on `Menu Bar Only > Clock > Clock Options > Use a 24-hour clock`.
 
-### Language & Region
+### Siri & Spotlight
 
-- `General` tab
-  - Set `First day of week` to `Sunday`.
-  - Set `Time format` to `24-Hour Time`.
+- Turn off `Ask Siri`.
+- Uncheck all the items under `Spotlight`.
 
-### Network
+### Wi-Fi
 
-- `Wi-Fi` > `Advanced` > `DNS`
+- Click the `Details` button next to the desired network(s) and go to the `DNS` entry.
   - Clear out any existing entries in `DNS Servers`.
   - Add these DNS servers instead in this order:
     - `1.1.1.1`
     - `8.8.8.8`
     - `8.8.4.4`
-  
-### Sharing
-
-- Fill in `Computer Name` with something cool.
-- `Computer Name` > `Edit` and use the same name for the `Local Hostname`.
   
 ## Installation Script
 
