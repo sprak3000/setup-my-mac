@@ -12,6 +12,10 @@ else
   echo ">>>> Homebrew already installed"
 fi
 
+echo '# Set PATH, MANPATH, etc., for Homebrew.' >> "$userdir/.zprofile"
+echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> "$userdir/.zprofile"
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 #### Install software via Brewfile ####
 brew bundle install --no-lock
 
