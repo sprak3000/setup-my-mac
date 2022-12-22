@@ -20,7 +20,7 @@ if [ 1 = "$(grep --count fish /etc/shells)" ]; then
   echo ">>>> fish shell already in list of allowed shells"
 else
   echo ">>>> Adding fish shell to list of allowed shells"
-  echo "/usr/local/bin/fish" | sudo tee -a /etc/shells
+  echo "/opt/homebrew/bin/fish" | sudo tee -a /etc/shells
 fi
 
 #### Make fish the default shell ####
@@ -28,7 +28,7 @@ if [ 1 = "$(dscl . -read $userdir UserShell | grep --count fish)" ]; then
   echo ">>>> fish shell already the default shell"
 else
   echo ">>>> Making fish shell the default shell"
-  chsh -s /usr/local/bin/fish
+  chsh -s /opt/homebrew/bin/fish
 fi
 
 #### Install oh-my-fish package manager ####
