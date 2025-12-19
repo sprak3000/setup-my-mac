@@ -4,119 +4,223 @@
 whoami=$(whoami)
 userdir="/Users/$whoami"
 
-#### Install Homebrew ####
-if ! brew_loc="$(type -p "brew")" || [[ -z $brew_loc ]]; then
-  echo ">>>> Installing Homebrew"
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-else
-  echo ">>>> Homebrew already installed"
-fi
 
-echo '# Set PATH, MANPATH, etc., for Homebrew.' >> "$userdir/.zprofile"
-echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> "$userdir/.zprofile"
-eval "$(/opt/homebrew/bin/brew shellenv)"
+function welcome() {
+  printf "🛠🛠🧑‍💻 Setup your macOS machine 🧑‍💻🛠🛠\n\n"
+}
 
-#### Install software via Brewfile ####
-brew bundle install --no-lock
-
-#### Add fish shell to the list of allowed shells ####
-if [ 1 = "$(grep --count fish /etc/shells)" ]; then
-  echo ">>>> fish shell already in list of allowed shells"
-else
-  echo ">>>> Adding fish shell to list of allowed shells"
-  echo "/opt/homebrew/bin/fish" | sudo tee -a /etc/shells
-fi
-
-#### Make fish the default shell ####
-if [ 1 = "$(dscl . -read $userdir UserShell | grep --count fish)" ]; then
-  echo ">>>> fish shell already the default shell"
-else
-  echo ">>>> Making fish shell the default shell"
-  chsh -s /opt/homebrew/bin/fish
-fi
-
-#### Install oh-my-fish package manager ####
-if ! omf_loc="$(fish --command='type -p "omf"')" || [[ -z $omf_loc ]]; then
-  echo ">>>> Installing oh-my-fish"
-  curl -L https://get.oh-my.fish | fish
-else
-  echo ">>>> oh-my-fish already installed"
-fi
-
-#### Install oh-my-fish packages ####
-omfPackages=("bass" "gitstatus")
-for package in "${omfPackages[@]}"; do
-  if [ 1 = "$(fish --command='omf list' | grep --count $package)" ]; then
-    echo ">>>> oh-my-fish package $package already installed"
+function detectOS() {
+  if [[ "$OSTYPE" =~ ^darwin ]]; then
+    echo "🖥️ macOS detected. 👍🏽"
   else
-    echo ">>>> Installing oh-my-fish package $package"
-    fish --command="omf install $package"
+    echo "⁉️You are not running on a macOS system. Exiting... 👎🏽"
+    exit 1
   fi
-done
+}
 
-#### Set fish shell theme to gitstatus ####
-if [ 1 = "$(fish --command='omf theme' | grep default | head -n 1 | grep --count gitstatus)" ]; then
-  echo ">>>> fish shell theme is already gitstatus"
-else
-  echo ">>>> Setting fish shell theme to gitstatus"
+function installHomebrew() {
+  echo "🛠🍺️Installing Homebrew..."
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  echo "🍺✅ Homebrew installed!"
+}
+
+function installFonts() {
+  echo "🛠📝Installing JetBrains Mono font..."
+  brew install --cask font-jetbrains-mono
+  echo "📝✅JetBrains Mono font installed!"
+}
+
+function installFirefox() {
+  echo "🛠🦊Installing Firefox Developer Edition..."
+  brew install --cask firefox@developer-edition
+  echo "🦊✅Firefox Developer Edition installed!"
+}
+
+function installChatClients() {
+  echo "🛠💬Installing Slack..."
+  brew install --cask slack
+  echo "💬✅Slack installed!"
+
+  echo "🛠🌐Installing Discord..."
+  brew install --cask discord
+  echo "🌐✅Discord installed!"
+}
+
+function installFishShell() {
+  echo "🛠🐟Installing fish shell..."
+  brew install fish
+  echo "🐟✅ fish shell installed!"
+
+  echo "🛠🐟Adding fish shell to list of allowed shells..."
+  command -v fish | sudo tee -a /etc/shells
+  echo "🐟✅fish shell added to the list of allowed shells!"
+
+  echo "🛠🐟Making fish shell the default shell..."
+  chsh -s "$(command -v fish)"
+  echo "🐟✅fish shell is now the default shell!"
+}
+
+function installOhMyFish() {
+  echo "🛠🐟Installing oh-my-fish..."
+  curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
+  echo "🐟✅oh-my-fish installed!"
+
+  omfPackages=("bass" "gitstatus")
+  for package in "${omfPackages[@]}"; do
+    echo "🛠🐟Installing oh-my-fish $package package..."
+    fish --command="omf install $package"
+    echo "🐟✅oh-my-fish package $package installed!"
+  done
+
+  echo "🛠🐟Setting fish shell theme to gitstatus..."
   fish --command="omf theme gitstatus"
-fi
+  echo "🐟✅fish shell theme set to gitstatus1"
+}
 
-#### Install dotfiles via chezmoi ####
-chezmoi init --apply sprak3000
+function installTerminalUtilities() {
+  echo "🛠🖥️Installing iTerm2..."
+  brew install --cask iterm2
+  echo "🖥✅iTerm2 installed!"
 
-#### Setup Hammerspoon and Arrange Desktop spoon ####
-if [ -d "$userdir/.hammerspoon/Spoons" ]; then
-  echo ">>>> $userdir/.hammerspoon/Spoons already exists"
-else
-  echo ">>>> Creating $userdir/.hammerspoon/Spoons"
-  mkdir "$userdir/.hammerspoon/Spoons"
-fi
+  echo "🛠Installing autojump..."
+  brew install autojump
+  echo "✅autojump installed!"
 
-if [ -d "$userdir/.hammerspoon/Spoons/ArrangeDesktop.spoon" ]; then
-  echo ">>>> $userdir/.hammerspoon/Spoons/ArrangeDesktop.spoon already exists"
-else
-  echo ">>>> Downloading and installing $userdir/.hammerspoon/Spoons/ArrangeDesktop.spoon"
-  curl -L -o /tmp/ArrangeDesktop.spoon.zip https://github.com/Hammerspoon/Spoons/raw/master/Spoons/ArrangeDesktop.spoon.zip
+  echo "🛠Installing vfox..."
+  brew install vfox
+  echo "✅vfox installed!"
+
+  echo "🛠Installing yt-dlp..."
+  brew install yt-dlp
+  echo "✅yt-dlp installed!"
+}
+
+function installDotFiles() {
+    echo "🛠🐟Installing fish shell configuration files..."
+    curl --location --output "$userdir/.config/fish/" https://raw.githubusercontent.com/sprak3000/dotfiles/refs/heads/main/private_dot_config/private_fish/config.fish
+    echo "🛠🐟fish shell configuration files installed!"
+
+    echo "🛠Installing vim configuration files..."
+    curl --location --output "$userdir/" https://raw.githubusercontent.com/sprak3000/dotfiles/refs/heads/main/dot_gvimrc
+    curl --location --output "$userdir/" https://raw.githubusercontent.com/sprak3000/dotfiles/refs/heads/main/dot_vimrc
+    echo "🛠vim configuration files installed!"
+
+    echo "🛠Installing zsh configuration files..."
+    curl --location --output "$userdir/" https://raw.githubusercontent.com/sprak3000/dotfiles/refs/heads/main/dot_zprofile
+    curl --location --output "$userdir/" https://raw.githubusercontent.com/sprak3000/dotfiles/refs/heads/main/dot_zshrc
+    echo "🛠zsh configuration files installed!"
+}
+
+function installSystemUtilities() {
+  echo "🛠✂️Installing jumpcut..."
+  brew install --cask jumpcut
+  echo "✂️✅jumpcut installed!"
+
+  echo "🛠☕️Installing caffeine..."
+  brew install --cask caffeine
+  echo "☕️✅caffeine installed!"
+
+  echo "🛠🌓Installing f.lux..."
+  brew install --cask flux-app
+  echo "🌓✅f.lux installed!"
+
+  echo "🛠🔐Installing veracrypt..."
+  brew install --cask veracrypt
+  echo "🔐✅veracrypt installed!"
+}
+
+function installHammerspoon() {
+  echo "🛠🥄Installing hammerspoon..."
+  brew install --cask hammerspoon
+  echo "🥄✅hammerspoon installed!"
+
+  echo "🛠🗂️Creating .hammerspoon/Spoons directory..."
+  mkdir -p "$userdir/.hammerspoon/Spoons"
+  echo "🗂️✅.hammerspoon/Spoons directory created!"
+
+  echo "🛠🥄Installing hammerspoon configuration file..."
+  curl --location --output "$userdir/.hammerspoon/" https://raw.githubusercontent.com/sprak3000/dotfiles/refs/heads/main/dot_hammerspoon/init.lua
+  echo "🛠🥄hammerspoon configuration file installed!"
+
+  echo "🛠🥄Downloading and installing $userdir/.hammerspoon/Spoons/ArrangeDesktop.spoon"
+  curl --location --output /tmp/ArrangeDesktop.spoon.zip https://github.com/Hammerspoon/Spoons/raw/master/Spoons/ArrangeDesktop.spoon.zip
   unzip /tmp/ArrangeDesktop.spoon.zip -d "$userdir/.hammerspoon/Spoons/"
   rm /tmp/ArrangeDesktop.spoon.zip
-fi
+  echo "🥄✅$userdir/.hammerspoon/Spoons/ArrangeDesktop.spoon installed!"
+}
 
-#### Link to xbar plugins folder ####
-if [ -d "$userdir/.xbar" ]; then
-  echo ">>>> $userdir/.xbar already exists"
-else
-  echo ">>>> Creating $userdir/.xbar"
+function installXbar() {
+  echo "🛠Installing xbar..."
+  brew install --cask xbar
+  echo "✅xbar installed!"
+
+  echo "🛠🗂️Creating $userdir/.xbar directory..."
   ln -s ~/Library/Application\ Support/xbar/plugins ~/.xbar
-fi
+  echo "🗂️✅$userdir/.xbar directory created!"
+}
 
-#### Create github.com directory ####
-if [ -d "$userdir/github.com" ]; then
-  echo ">>>> $userdir/github.com already exists"
-else
-  echo ">>>> Creating $userdir/github.com"
-  mkdir "$userdir/github.com"
-fi
+function installIDEs() {
+  echo "🛠🕸️Installing WebStorm..."
+  brew install --cask webstorm
+  echo "🕸✅WebStorm installed!"
 
-#### Create the wallpapers directory ####
-if [ -d "$userdir/Pictures/wallpaper" ]; then
-  echo ">>>> $userdir/Pictures/wallpaper already exists"
-else
-  echo ">>>> Creating $userdir/Pictures/wallpaper"
-  mkdir "$userdir/Pictures/wallpaper"
-fi
+  echo "🛠⛈️Installing PHPStorm..."
+  brew install --cask phpstorm
+  echo "⛈️✅PHPStorm installed!"
 
-#### Parting words
-#echo ">>>> Software to install through App Store >>>>"
-#
-#appStoreInstalls=("XCode")
-#for install in "${appStoreInstalls[@]}"; do
-#  echo -e "\t$install"
-#done
+  echo "🛠⛰️Installing GoLand..."
+  brew install --cask goland
+  echo "⛰️✅GoLand installed!"
 
-echo ">>>> Software to install manually >>>>"
+  echo "🛠📊Installing DataGrip..."
+  brew install --cask datagrip
+  echo "📊✅DataGrip installed!"
 
-manualInstalls=("FileZilla" "H+R Block Tax" "Quicken")
-for install in "${manualInstalls[@]}"; do
-  echo -e "\t$install"
-done
+  echo "🛠Installing MacVim..."
+  brew install macvim
+  echo "✅MacVim installed!"
+}
+
+function installGames() {
+  echo "🛠Installing GOG Galaxy..."
+  brew install --cask gog-galaxy
+  echo "✅GOG Galaxy installed!"
+
+  echo "🛠Installing Steam..."
+  brew install --cask steam
+  echo "✅Steam installed!"
+
+  echo "🛠Installing Battle.net..."
+  brew install --cask battle-net
+  echo "✅Battle.net installed!"
+}
+
+function setupGitHub() {
+  echo "🛠🗂️Creating github.com directory..."
+  mkdir -p "$userdir/github.com"
+  echo "🗂️✅github.com directory created!"
+}
+
+function setupWallpapers() {
+  echo "🛠🗂️Creating Pictures/wallpaper directory..."
+  mkdir -p "$userdir/Pictures/wallpaper"
+  echo "🗂️✅Pictures/wallpaper directory created!"
+}
+
+welcome
+detectOS
+installHomebrew
+installFonts
+installFirefox
+installChatClients
+installFishShell
+installOhMyFish
+installTerminalUtilities
+installSystemUtilities
+installDotFiles
+installHammerspoon
+installXbar
+installIDEs
+installGames
+setupGitHub
+setupWallpapers
