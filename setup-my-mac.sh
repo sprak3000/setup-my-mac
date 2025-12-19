@@ -96,6 +96,14 @@ function installTerminalUtilities() {
   echo "🛠Installing tbls..."
   brew install tbls
   echo "✅tbls installed!"
+
+  echo "🛠Installing task..."
+  brew install go-task
+  echo "✅task installed!"
+
+  echo "🛠Installing revive..."
+  brew install revive
+  echo "✅revive installed!"
 }
 
 function installDotFiles() {
@@ -190,6 +198,13 @@ function installOrbStack() {
   echo "✅OrbStack installed!"
 }
 
+function installPHP() {
+  echo "🛠Installing PHP..."
+  brew tap shivammathur/php
+  brew install shivammathur/php/php@8.5
+  echo "✅PHP installed!"
+}
+
 function installGames() {
   echo "🛠Installing GOG Galaxy..."
   brew install --cask gog-galaxy
@@ -232,6 +247,7 @@ installHammerspoon
 installXbar
 installIDEs
 installOrbStack
+installPHP
 installGames
 setupGitHub
 setupWallpapers
