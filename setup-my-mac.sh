@@ -181,6 +181,12 @@ function installIDEs() {
   echo "✅MacVim installed!"
 }
 
+function installOrbStack() {
+  echo "🛠Installing OrbStack..."
+  brew install --cask orbstack
+  echo "✅OrbStack installed!"
+}
+
 function installGames() {
   echo "🛠Installing GOG Galaxy..."
   brew install --cask gog-galaxy
@@ -221,6 +227,7 @@ installDotFiles
 installHammerspoon
 installXbar
 installIDEs
+installOrbStack
 installGames
 setupGitHub
 setupWallpapers

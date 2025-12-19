@@ -10,7 +10,7 @@ myself. You will find in here:
 - A script to
     - Install a considerable amount of software I use
     - Setup my terminal theme
-    - Setup various dotfiles and configuration files.
+    - Setup various dotfiles and configuration filesls .
 
 ## Initial Setup
 
