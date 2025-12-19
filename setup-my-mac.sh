@@ -4,11 +4,6 @@
 whoami=$(whoami)
 userdir="/Users/$whoami"
 
-
-function welcome() {
-  printf "🛠🛠🧑‍💻 Setup your macOS machine 🧑‍💻🛠🛠\n\n"
-}
-
 function detectOS() {
   if [[ "$OSTYPE" =~ ^darwin ]]; then
     echo "🖥️ macOS detected. 👍🏽"
@@ -213,7 +208,8 @@ function setupWallpapers() {
   echo "🗂️✅Pictures/wallpaper directory created!"
 }
 
-welcome
+printf "🛠🛠🧑‍💻 Setup your macOS machine 🧑‍💻🛠🛠\n\n"
+
 detectOS
 installHomebrew
 installFonts
@@ -231,3 +227,5 @@ installOrbStack
 installGames
 setupGitHub
 setupWallpapers
+
+printf "\n🎉🎉🎉 Setup complete! 🎉🎉🎉\n\n"
