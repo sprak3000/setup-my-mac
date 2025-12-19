@@ -88,6 +88,14 @@ function installTerminalUtilities() {
   echo "🛠Installing yt-dlp..."
   brew install yt-dlp
   echo "✅yt-dlp installed!"
+
+  echo "🛠Installing jq..."
+  brew install jq
+  echo "✅jq installed!"
+
+  echo "🛠Installing tbls..."
+  brew install tbls
+  echo "✅tbls installed!"
 }
 
 function installDotFiles() {
