@@ -1,7 +1,8 @@
-# Setup My Mac
+# Set up my Mac
 
-- **Current Silicon Used:** Apple M1
-- **Current OS X Version Used:** `Ventura 13.1`
+> [!NOTE]
+> - **Latest silicon used:** Apple M1
+> - **Latest macOS version used:** `Ventura 13.1`
 
 This repository holds my scripts, configuration files, notes, etc. for the rare occasion of setting up a new Mac for
 myself. You will find in here:
@@ -9,8 +10,8 @@ myself. You will find in here:
 - My customizations to various system preferences
 - A script to
     - Install a considerable amount of software I use
-    - Setup my terminal theme
-    - Setup various dotfiles and configuration filesls .
+    - Set up my terminal theme
+    - Set up various dotfiles and configuration files.
 
 ## Initial Setup
 
@@ -85,20 +86,26 @@ Here are the various customizations I make to the default system preferences.
 ./setup-my-mac.sh
 ```
 
-This `bash` script performs the following tasks in order:
+This `bash` script performs the following tasks:
 
-- Install [Homebrew](https://brew.sh/).
-- Use Homebrew to automatically install various software you would otherwise have to manually install (see `Brewfile`
-  for list).
-- Setup fish shell to be the default shell.
-- Install the [oh-my-fish](https://github.com/oh-my-fish/oh-my-fish) package manager.
-- Use oh-my-fish to install any fish shell packages and the `gitstatus` theme.
-- Create the directories `~/github.com`, `~/Pictures/wallpapers`.
-- Remind me of any other software I need to manually download and install.
-- Use [chezmoi](https://www.chezmoi.io) to install dotfiles and configuration files.
+- Installs [Homebrew](https://brew.sh/) package manager
+- Installs [JetBrains Mono](https://www.jetbrains.com/lp/mono/) font
+- Installs and configures [fish shell](https://fishshell.com/) as the default shell
+- Installs [oh-my-fish](https://github.com/oh-my-fish/oh-my-fish) package manager with `bass` package and `gitstatus`
+  theme
+- Downloads fish, zsh, vim, and Hammerspoon configuration files from dotfiles repository
+- Installs terminal and utilities: iTerm2, autojump, vfox, yt-dlp, jq, tbls, go-task, revive
+- Installs system utilities: Jumpcut, Caffeine, Flux, VeraCrypt, xbar, Hammerspoon (with ArrangeDesktop spoon)
+- Installs web browsers: Firefox Developer Edition, Google Chrome
+- Installs chat clients: Slack and Discord
+- Installs JetBrains IDEs: WebStorm, PHPStorm, GoLand, DataGrip
+- Installs MacVim
+- Installs OrbStack for Docker containers
+- Installs PHP 8.5 via shivammathur/php tap
+- Installs gaming platforms: GOG Galaxy, Steam, Battle.net
+- Creates directories: `~/github.com` and `~/Pictures/wallpaper`
 
-The script endeavors to only perform a step if necessary. e.g., It attempts to detect already installed software to
-prevent trying to inst all it again.
+The script detects already installed software and skips reinstallation to prevent errors and save time.
 
 ## What I Use
 
@@ -108,7 +115,12 @@ prevent trying to inst all it again.
 |:-----------------------------------------------------------:|-----------------------------------------------------------------------|:--------------------------------------------------------------------------------------------------:|
 |                [Homebrew](https://brew.sh/)                 | OS X package manager used to install software                         | See latest instructions on homepage. `setup-my-mac.sh` has those instructions as of last check-in. |
 |        [autojump](https://github.com/wting/autojump)        | Utility for quickly changing to previously visited directories        |                                              Homebrew                                              |
+|           [vfox](https://vfox.lhan.me/index.html)           | Version manager for programming languages and tools                   |                                              Homebrew                                              |
 |         [yt-dlp](https://github.com/yt-dlp/yt-dlp)          | Utility for downloading videos from YouTube and other streaming sites |                                              Homebrew                                              |
+|             [jq](https://jqlang.github.io/jq/)              | Command-line JSON processor                                           |                                              Homebrew                                              |
+|            [tbls](https://github.com/k1LoW/tbls)            | Database documentation tool                                           |                                              Homebrew                                              |
+|              [go-task](https://taskfile.dev/)               | Task runner / build tool                                              |                                              Homebrew                                              |
+|         [revive](https://github.com/mgechev/revive)         | Go linter                                                             |                                              Homebrew                                              |
 |         [Jumpcut](https://github.com/snark/jumpcut)         | Clipboard manager                                                     |                                           Homebrew Cask                                            |
 | [Caffeine](https://intelliscapesolutions.com/apps/caffeine) | Prevents your Mac from automatically going to sleep                   |                                           Homebrew Cask                                            |
 |     [VeraCrypt](https://www.veracrypt.fr/en/Home.html)      | Disk encryption software                                              |                                           Homebrew Cask                                            |
@@ -126,32 +138,35 @@ prevent trying to inst all it again.
 |  [oh-my-fish](https://github.com/oh-my-fish/oh-my-fish)   | Package manager for fish shell used to install themes and fish shell related utilities | See latest instructions on homepage. `setup-my-mac.sh` has those instructions as of last check-in. |
 | [JetBrains Mono Font](https://www.jetbrains.com/lp/mono/) | Programmer friendly font                                                               |                                           Homebrew Cask                                            |
 
-### Programming IDEs
+### Programming IDEs & Tools
 
-|                           Name                           | Description                                  | Installation |
-|:--------------------------------------------------------:|----------------------------------------------|:------------:|
-|     [PHPStorm](https://www.jetbrains.com/phpstorm/)      | JetBrains IDE for PHP development            |    Manual    |
-|         [GoLand](https://www.jetbrains.com/go/)          | JetBrains IDE for Go development             |    Manual    |
-|     [WebStorm](https://www.jetbrains.com/webstorm/)      | JetBrains IDE for JavaScript development     |    Manual    |
-|     [DataGrip](https://www.jetbrains.com/datagrip/)      | JetBrains IDE for SQL / database development |    Manual    |
+|                      Name                       | Description                                          | Installation  |
+|:-----------------------------------------------:|------------------------------------------------------|:-------------:|
+| [PHPStorm](https://www.jetbrains.com/phpstorm/) | JetBrains IDE for PHP development                    | Homebrew Cask |
+|     [GoLand](https://www.jetbrains.com/go/)     | JetBrains IDE for Go development                     | Homebrew Cask |
+| [WebStorm](https://www.jetbrains.com/webstorm/) | JetBrains IDE for JavaScript development             | Homebrew Cask |
+| [DataGrip](https://www.jetbrains.com/datagrip/) | JetBrains IDE for SQL / database development         | Homebrew Cask |
+|        [OrbStack](https://orbstack.dev/)        | Fast, lightweight Docker and Linux container runtime | Homebrew Cask |
+|           [PHP](https://www.php.net/)           | PHP 8.5 programming language                         |   Homebrew    |
 
 ### Web Browsers
 
 |                                     Name                                      | Description                                  | Installation  |
 |:-----------------------------------------------------------------------------:|----------------------------------------------|:-------------:|
 | [Firefox Developer Edition](https://www.mozilla.org/en-US/firefox/developer/) | Version of Firefox geared towards developers | Homebrew Cask |
+|                [Google Chrome](https://www.google.com/chrome/)                | Google's web browser                         | Homebrew Cask |
 
 ### Chat & Social Media
 
-|                Name                | Description    | Installation  |
-|:----------------------------------:|----------------|:-------------:|
-|    [Slack](https://slack.com/)     |                |   App Store   |
-|  [Discord](https://discord.com/)   |                | Homebrew Cask |
+|              Name               | Description                 | Installation  |
+|:-------------------------------:|-----------------------------|:-------------:|
+|   [Slack](https://slack.com/)   | Team communication platform | Homebrew Cask |
+| [Discord](https://discord.com/) | Voice, video and text chat  | Homebrew Cask |
 
 ### Entertainment
 
 |                                 Name                                 | Description                     | Installation  |
 |:--------------------------------------------------------------------:|---------------------------------|:-------------:|
-| [Battle.net](https://www.blizzard.com/en-us/apps/battle.net/desktop) | Blizzard gaming client          |    Manual     |
+| [Battle.net](https://www.blizzard.com/en-us/apps/battle.net/desktop) | Blizzard gaming client          | Homebrew Cask |
 |               [Steam](https://store.steampowered.com/)               | Platform for a variety of games | Homebrew Cask |
 |               [GOG Galaxy](https://www.gog.com/galaxy)               | Platform for older games        | Homebrew Cask |

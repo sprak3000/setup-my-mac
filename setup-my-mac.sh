@@ -235,6 +235,7 @@ fi
 ### Web browsers ###
 
 installHomebrewCask "firefox@developer-edition" "Firefox Developer Edition"
+installHomebrewCask "google-chrome" "Google Chrome"
 
 ### Chat clients ###
 
