@@ -1,255 +1,285 @@
 #!/bin/bash
 
-#### Get current user
-whoami=$(whoami)
-userdir="/Users/$whoami"
-
 function detectOS() {
   if [[ "$OSTYPE" =~ ^darwin ]]; then
-    echo "🖥️ macOS detected. 👍🏽"
-  else
-    echo "⁉️You are not running on a macOS system. Exiting... 👎🏽"
-    exit 1
+    printf "🖥️ macOS detected.👍🏽\n\n"
+    return
   fi
+
+  echo "⁉️You are not running on a macOS system. Exiting... 👎🏽"
+  exit 1
+}
+
+function isInstalled() {
+  # It is not installed
+  if ! loc="$(type -p "$1")" || [[ -z $loc ]]; then
+    return 1
+  fi
+
+  # It is installed.
+  return 0
+}
+
+function createDirectory() {
+  # Directory already exists
+  if [[ -d "$1" ]]; then
+    echo "✅ $1 directory already exists! Skipping..."
+    return
+  fi
+
+  echo "🛠 🗂 Creating $1 directory..."
+  mkdir -p "$1"
+  echo "✅ $1 directory created!"
+}
+
+function isAppInstalled() {
+  local app_name="$1"
+
+  # Check common application directories
+  if [[ -d "/Applications/${app_name}.app" ]] || [[ -d "$HOME/Applications/${app_name}.app" ]]; then
+    return 0
+  fi
+
+  # Not installed
+  return 1
+}
+
+function fileExists() {
+  # File does not exist
+  if [[ ! -f "$1" ]]; then
+    return 1
+  fi
+
+  # File exists
+  return 0
 }
 
 function installHomebrew() {
-  echo "🛠🍺️Installing Homebrew..."
+  if isInstalled "brew"; then
+    echo "✅ Homebrew is already installed! Skipping..."
+    return
+  fi
+
+  echo "🛠  Installing Homebrew..."
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  echo "🍺✅ Homebrew installed!"
+  echo "✅ Homebrew installed!"
 }
 
-function installFonts() {
-  echo "🛠📝Installing JetBrains Mono font..."
-  brew install --cask font-jetbrains-mono
-  echo "📝✅JetBrains Mono font installed!"
+function installHomebrewFormula() {
+  local formula_name="$1"
+  local app_name="$2"
+
+  if isInstalled "${app_name}"; then
+    echo "✅ ${app_name} already installed! Skipping..."
+    return
+  fi
+
+  echo "🛠 Installing ${app_name}..."
+  brew install "${formula_name}"
+  echo "✅ ${app_name} installed!"
 }
 
-function installFirefox() {
-  echo "🛠🦊Installing Firefox Developer Edition..."
-  brew install --cask firefox@developer-edition
-  echo "🦊✅Firefox Developer Edition installed!"
+function installHomebrewCask() {
+  local cask_name="$1"
+  local app_name="$2"
+
+  if isAppInstalled "${app_name}"; then
+    echo "✅ ${app_name} already installed! Skipping..."
+    return
+  fi
+
+  echo "🛠 Installing ${app_name}..."
+  brew install --cask "${cask_name}"
+  echo "✅ ${app_name} installed!"
 }
 
-function installChatClients() {
-  echo "🛠💬Installing Slack..."
-  brew install --cask slack
-  echo "💬✅Slack installed!"
+function downloadFile() {
+  local output="$1"
+  local url="$2"
+  local description="$3"
 
-  echo "🛠🌐Installing Discord..."
-  brew install --cask discord
-  echo "🌐✅Discord installed!"
+  if fileExists "${output}"; then
+    echo "✅ The ${description} already exists! Skipping..."
+    return
+  fi
+
+  echo "📥 Downloading ${description}..."
+  curl --location --output "${output}" "${url}"
+  echo "✅ Downloaded the ${description}!"
 }
 
-function installFishShell() {
-  echo "🛠🐟Installing fish shell..."
-  brew install fish
-  echo "🐟✅ fish shell installed!"
+### >>> Installation steps <<< ###
 
-  echo "🛠🐟Adding fish shell to list of allowed shells..."
-  command -v fish | sudo tee -a /etc/shells
-  echo "🐟✅fish shell added to the list of allowed shells!"
+whoami=$(whoami)
+userdir="/Users/$whoami"
 
-  echo "🛠🐟Making fish shell the default shell..."
-  chsh -s "$(command -v fish)"
-  echo "🐟✅fish shell is now the default shell!"
-}
-
-function installOhMyFish() {
-  echo "🛠🐟Installing oh-my-fish..."
-  curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
-  echo "🐟✅oh-my-fish installed!"
-
-  omfPackages=("bass" "gitstatus")
-  for package in "${omfPackages[@]}"; do
-    echo "🛠🐟Installing oh-my-fish $package package..."
-    fish --command="omf install $package"
-    echo "🐟✅oh-my-fish package $package installed!"
-  done
-
-  echo "🛠🐟Setting fish shell theme to gitstatus..."
-  fish --command="omf theme gitstatus"
-  echo "🐟✅fish shell theme set to gitstatus1"
-}
-
-function installTerminalUtilities() {
-  echo "🛠🖥️Installing iTerm2..."
-  brew install --cask iterm2
-  echo "🖥✅iTerm2 installed!"
-
-  echo "🛠Installing autojump..."
-  brew install autojump
-  echo "✅autojump installed!"
-
-  echo "🛠Installing vfox..."
-  brew install vfox
-  echo "✅vfox installed!"
-
-  echo "🛠Installing yt-dlp..."
-  brew install yt-dlp
-  echo "✅yt-dlp installed!"
-
-  echo "🛠Installing jq..."
-  brew install jq
-  echo "✅jq installed!"
-
-  echo "🛠Installing tbls..."
-  brew install tbls
-  echo "✅tbls installed!"
-
-  echo "🛠Installing task..."
-  brew install go-task
-  echo "✅task installed!"
-
-  echo "🛠Installing revive..."
-  brew install revive
-  echo "✅revive installed!"
-}
-
-function installDotFiles() {
-    echo "🛠🐟Installing fish shell configuration files..."
-    curl --location --output "$userdir/.config/fish/" https://raw.githubusercontent.com/sprak3000/dotfiles/refs/heads/main/private_dot_config/private_fish/config.fish
-    echo "🛠🐟fish shell configuration files installed!"
-
-    echo "🛠Installing vim configuration files..."
-    curl --location --output "$userdir/" https://raw.githubusercontent.com/sprak3000/dotfiles/refs/heads/main/dot_gvimrc
-    curl --location --output "$userdir/" https://raw.githubusercontent.com/sprak3000/dotfiles/refs/heads/main/dot_vimrc
-    echo "🛠vim configuration files installed!"
-
-    echo "🛠Installing zsh configuration files..."
-    curl --location --output "$userdir/" https://raw.githubusercontent.com/sprak3000/dotfiles/refs/heads/main/dot_zprofile
-    curl --location --output "$userdir/" https://raw.githubusercontent.com/sprak3000/dotfiles/refs/heads/main/dot_zshrc
-    echo "🛠zsh configuration files installed!"
-}
-
-function installSystemUtilities() {
-  echo "🛠✂️Installing jumpcut..."
-  brew install --cask jumpcut
-  echo "✂️✅jumpcut installed!"
-
-  echo "🛠☕️Installing caffeine..."
-  brew install --cask caffeine
-  echo "☕️✅caffeine installed!"
-
-  echo "🛠🌓Installing f.lux..."
-  brew install --cask flux-app
-  echo "🌓✅f.lux installed!"
-
-  echo "🛠🔐Installing veracrypt..."
-  brew install --cask veracrypt
-  echo "🔐✅veracrypt installed!"
-}
-
-function installHammerspoon() {
-  echo "🛠🥄Installing hammerspoon..."
-  brew install --cask hammerspoon
-  echo "🥄✅hammerspoon installed!"
-
-  echo "🛠🗂️Creating .hammerspoon/Spoons directory..."
-  mkdir -p "$userdir/.hammerspoon/Spoons"
-  echo "🗂️✅.hammerspoon/Spoons directory created!"
-
-  echo "🛠🥄Installing hammerspoon configuration file..."
-  curl --location --output "$userdir/.hammerspoon/" https://raw.githubusercontent.com/sprak3000/dotfiles/refs/heads/main/dot_hammerspoon/init.lua
-  echo "🛠🥄hammerspoon configuration file installed!"
-
-  echo "🛠🥄Downloading and installing $userdir/.hammerspoon/Spoons/ArrangeDesktop.spoon"
-  curl --location --output /tmp/ArrangeDesktop.spoon.zip https://github.com/Hammerspoon/Spoons/raw/master/Spoons/ArrangeDesktop.spoon.zip
-  unzip /tmp/ArrangeDesktop.spoon.zip -d "$userdir/.hammerspoon/Spoons/"
-  rm /tmp/ArrangeDesktop.spoon.zip
-  echo "🥄✅$userdir/.hammerspoon/Spoons/ArrangeDesktop.spoon installed!"
-}
-
-function installXbar() {
-  echo "🛠Installing xbar..."
-  brew install --cask xbar
-  echo "✅xbar installed!"
-
-  echo "🛠🗂️Creating $userdir/.xbar directory..."
-  ln -s ~/Library/Application\ Support/xbar/plugins ~/.xbar
-  echo "🗂️✅$userdir/.xbar directory created!"
-}
-
-function installIDEs() {
-  echo "🛠🕸️Installing WebStorm..."
-  brew install --cask webstorm
-  echo "🕸✅WebStorm installed!"
-
-  echo "🛠⛈️Installing PHPStorm..."
-  brew install --cask phpstorm
-  echo "⛈️✅PHPStorm installed!"
-
-  echo "🛠⛰️Installing GoLand..."
-  brew install --cask goland
-  echo "⛰️✅GoLand installed!"
-
-  echo "🛠📊Installing DataGrip..."
-  brew install --cask datagrip
-  echo "📊✅DataGrip installed!"
-
-  echo "🛠Installing MacVim..."
-  brew install macvim
-  echo "✅MacVim installed!"
-}
-
-function installOrbStack() {
-  echo "🛠Installing OrbStack..."
-  brew install --cask orbstack
-  echo "✅OrbStack installed!"
-}
-
-function installPHP() {
-  echo "🛠Installing PHP..."
-  brew tap shivammathur/php
-  brew install shivammathur/php/php@8.5
-  echo "✅PHP installed!"
-}
-
-function installGames() {
-  echo "🛠Installing GOG Galaxy..."
-  brew install --cask gog-galaxy
-  echo "✅GOG Galaxy installed!"
-
-  echo "🛠Installing Steam..."
-  brew install --cask steam
-  echo "✅Steam installed!"
-
-  echo "🛠Installing Battle.net..."
-  brew install --cask battle-net
-  echo "✅Battle.net installed!"
-}
-
-function setupGitHub() {
-  echo "🛠🗂️Creating github.com directory..."
-  mkdir -p "$userdir/github.com"
-  echo "🗂️✅github.com directory created!"
-}
-
-function setupWallpapers() {
-  echo "🛠🗂️Creating Pictures/wallpaper directory..."
-  mkdir -p "$userdir/Pictures/wallpaper"
-  echo "🗂️✅Pictures/wallpaper directory created!"
-}
-
-printf "🛠🛠🧑‍💻 Setup your macOS machine 🧑‍💻🛠🛠\n\n"
+printf "\n🛠 🛠  🧑‍💻 Setup your macOS machine 🧑‍💻 🛠 🛠\n\n"
 
 detectOS
+
 installHomebrew
-installFonts
-installFirefox
-installChatClients
-installFishShell
-installOhMyFish
-installTerminalUtilities
-installSystemUtilities
-installDotFiles
-installHammerspoon
-installXbar
-installIDEs
-installOrbStack
-installPHP
-installGames
-setupGitHub
-setupWallpapers
+
+### Fonts ###
+
+foundJetBrainsMonoFont=false
+for font in ~/Library/Fonts/*JetBrains* /Library/Fonts/*JetBrains*; do
+  if [[ -e "$font" ]]; then
+    foundJetBrainsMonoFont=true
+    break
+  fi
+done
+
+if [[ "$foundJetBrainsMonoFont" == "true" ]]; then
+  echo "✅ JetBrains Mono fonts already installed! Skipping..."
+else
+  echo "🛠  Installing JetBrains Mono font..."
+  brew install --cask font-jetbrains-mono
+  echo "✅ JetBrains Mono font installed!"
+fi
+
+### Fish shell ###
+
+installHomebrewFormula "fish" "fish"
+
+if [ 1 = "$(grep --count fish /etc/shells)" ]; then
+  echo "✅ fish is already in list of allowed shells! Skipping..."
+else
+  echo "🛠  Adding fish shell to list of allowed shells..."
+  command -v fish | sudo tee -a /etc/shells
+  echo "✅ fish shell added to the list of allowed shells!"
+fi
+
+if [ 1 = "$(dscl . -read "$userdir" UserShell | grep --count fish)" ]; then
+  echo "✅ fish is already the default shell! Skipping..."
+else
+  chsh -s "$(command -v fish)"
+  echo "✅ fish is now the default shell!"
+fi
+
+downloadFile "$userdir/.config/fish/config.fish" "https://raw.githubusercontent.com/sprak3000/dotfiles/refs/heads/main/private_dot_config/private_fish/config.fish" "fish configuration file"
+
+if  [[ -d "$userdir/.local/share/omf" ]]; then
+  echo "✅ oh-my-fish is already installed! Skipping..."
+else
+  echo "🛠 Installing oh-my-fish..."
+  curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
+  echo "✅ oh-my-fish installed!"
+fi
+
+if [[ -d "$userdir/.local/share/omf/pkg/bass" ]]; then
+  echo "✅ The oh-my-fish bass package is already installed! Skipping..."
+else
+  echo "🛠  Installing oh-my-fish bass package..."
+  fish --command="omf install bass"
+  echo "✅ oh-my-fish package bass installed!"
+fi
+
+if [[ -d "$userdir/.local/share/omf/themes/gitstatus" ]]; then
+  echo "✅ The oh-my-fish gitstatus theme is already installed! Skipping..."
+else
+  echo "🛠  Installing oh-my-fish gitstatus theme..."
+  fish --command="omf install gitstatus"
+  echo "✅ oh-my-fish gitstatus theme installed!"
+fi
+
+if fileExists "$userdir/.config/omf/theme" && [[ "$(cat "$userdir/.config/omf/theme")" == "gitstatus" ]]; then
+  echo "✅ fish theme already set to gitstatus! Skipping..."
+else
+  echo "🛠  Setting fish theme to gitstatus..."
+  fish --command="omf theme gitstatus"
+  echo "✅ fish theme set to gitstatus!"
+fi
+
+### Terminal & utilities ###
+
+installHomebrewCask "iTerm2" "iTerm"
+downloadFile "$userdir/.zprofile" "https://raw.githubusercontent.com/sprak3000/dotfiles/refs/heads/main/dot_zprofile" ".zprofile file"
+downloadFile "$userdir/.zshrc" "https://raw.githubusercontent.com/sprak3000/dotfiles/refs/heads/main/dot_zshrc" ".zshrc file"
+
+installHomebrewFormula "autojump" "autojump"
+installHomebrewFormula "vfox" "vfox"
+installHomebrewFormula "yt-dlp" "yt-dlp"
+installHomebrewFormula "jq" "jq"
+installHomebrewFormula "tbls" "tbls"
+installHomebrewFormula "go-task" "task"
+installHomebrewFormula "revive" "revive"
+
+### System utilities ###
+
+installHomebrewCask "jumpcut" "Jumpcut"
+installHomebrewCask "caffeine" "Caffeine"
+installHomebrewCask "flux-app" "Flux"
+installHomebrewCask "veracrypt" "VeraCrypt"
+
+installHomebrewCask "xbar" "xbar"
+if [[ -d "$userdir/.xbar" ]]; then
+  echo "✅ $userdir/.xbar directory already exists! Skipping..."
+else
+  echo "🛠  Creating $userdir/.xbar directory..."
+  ln -s ~/Library/Application\ Support/xbar/plugins ~/.xbar
+  echo "✅ $userdir/.xbar directory created!"
+fi
+
+installHomebrewCask "hammerspoon" "Hammerspoon"
+createDirectory "$userdir/.hammerspoon/Spoons"
+downloadFile "$userdir/.hammerspoon/init.lua" "https://raw.githubusercontent.com/sprak3000/dotfiles/refs/heads/main/dot_hammerspoon/init.lua" "Hammerspoon configuration file"
+if [[ -d "$userdir/.hammerspoon/Spoons/ArrangeDesktop.spoon" ]]; then
+  echo "✅ ArrangeDesktop spoon already installed! Skipping..."
+else
+  downloadFile "/tmp/ArrangeDesktop.spoon.zip" "https://github.com/Hammerspoon/Spoons/raw/master/Spoons/ArrangeDesktop.spoon.zip" "ArrangeDesktop spoon archive file"
+  unzip /tmp/ArrangeDesktop.spoon.zip -d "$userdir/.hammerspoon/Spoons/"
+  rm /tmp/ArrangeDesktop.spoon.zip
+  echo "✅ ArrangeDesktop spoon installed!"
+fi
+
+### Web browsers ###
+
+installHomebrewCask "firefox@developer-edition" "Firefox Developer Edition"
+
+### Chat clients ###
+
+installHomebrewCask "slack" "Slack"
+installHomebrewCask "discord" "Discord"
+
+### IDEs ###
+
+installHomebrewCask "webstorm" "WebStorm"
+installHomebrewCask "phpstorm" "PHPStorm"
+installHomebrewCask "goland" "GoLand"
+installHomebrewCask "datagrip" "DataGrip"
+
+installHomebrewCask "macvim" "MacVim"
+downloadFile "$userdir/.gvimrc" "https://raw.githubusercontent.com/sprak3000/dotfiles/refs/heads/main/dot_gvimrc" ".gvimrc" ".gvimrc file"
+downloadFile "$userdir/.vimrc" "https://raw.githubusercontent.com/sprak3000/dotfiles/refs/heads/main/dot_vimrc" ".vimrc" ".vimrc file"
+
+### Docker ###
+
+installHomebrewCask "orbstack" "OrbStack"
+
+### PHP ###
+
+if [[ -d "$(brew --repository)/Library/Taps/shivammathur/homebrew-php" ]]; then
+  echo "✅ shivammathur/php tap already installed! Skipping..."
+else
+  echo "🛠  Installing shivammathur/php tap..."
+  brew tap shivammathur/php
+  echo "✅ shivammathur/php installed!"
+fi
+
+installHomebrewFormula "shivammathur/php/php@8.5" "PHP"
+
+### Gaming ###
+
+installHomebrewCask "gog-galaxy" "GOG Galaxy"
+installHomebrewCask "steam" "Steam"
+installHomebrewCask "battle-net" "Battle.net"
+
+### GitHub ###
+
+createDirectory "$userdir/github.com"
+
+### Wallpapers ###
+
+createDirectory "$userdir/Pictures/wallpaper"
 
 printf "\n🎉🎉🎉 Setup complete! 🎉🎉🎉\n\n"
