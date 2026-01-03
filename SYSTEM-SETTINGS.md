@@ -25,6 +25,7 @@
 ## Menu Bar
 
 - **Focus:** Always show
+- **Battery:** `Battery Options...`, enable `Show Percentage`
 - **Enable:**
   - Bluetooth
 - **Disable:**
