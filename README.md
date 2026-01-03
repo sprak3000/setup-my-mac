@@ -1,172 +1,50 @@
-# Setup My Mac
+# Set up my Mac
 
-- **Current Silicon Used:** Apple M1
-- **Current OS X Version Used:** `Ventura 13.1`
+> [!NOTE]
+> - **Latest silicon used:** Apple M4 Max
+> - **Latest macOS version used:** `Tahoe 26.0.1`
 
-This repository holds my scripts, configuration files, notes, etc. for the rare occasion of setting up a new Mac for
-myself. You will find in here:
-- My customizations to various system preferences
-- A script to 
-  - Install a considerable amount of software I use
-  - Remind of software I need to install manually
-  - Setup my terminal theme
-  - Setup various dotfiles and configuration files I use via [chezmoi](https://www.chezmoi.io).
+> [!WARNING]
+> The latest run had some hiccups. Here are known issues:
+>
+> - Homebrew installed but was not available for subsequent commands. A fix is applied to the script but has not been
+    tested.
+> - Some items needed Rosetta to be installed before they could be installed. A fix is applied to the script but has not
+    been tested.
+> - Installation of oh-my-fish stopped the installation by dropping into fish shell. A fix is applied to the script but
+    has not been tested.
+> - You need to start xbar before making a symlink to the plugins directory. This is currently commented out.
+> - The Battle.net Homebrew cask drops a manual installer on the system. You need to examine the output to find the
+    command to run.
 
-## Initial Setup
+## Steps
 
-I follow these steps immediately after I first boot up a new Mac and go through the initial setup it presents:
-- Apply any system software updates.
-- Apply any App Store updates for pre-installed software.
-- Remove any unwanted applications from the dock.
+1. Power on the machine and run through the [initial boot up](./INITIAL-BOOT-UP.md) steps.
+2. Make my preferred [system settings changes](./SYSTEM-SETTINGS.md).
+3. Open up `Terminal` and run
+   `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/sprak3000/setup-my-mac/refs/heads/master/setup-my-mac.sh)"`
+   to install tools, software, etc.
 
-## System Preferences
+## What I install
 
-Here are the various customizations I make to the default system preferences.
+The script performs the following tasks:
 
-### General
+- Installs Rosetta for Intel compatibility
+- Installs [Homebrew](https://brew.sh/) package manager
+- Installs [JetBrains Mono](https://www.jetbrains.com/lp/mono/) font
+- Installs and configures [fish shell](https://fishshell.com/) as the default shell
+- Installs [oh-my-fish](https://github.com/oh-my-fish/oh-my-fish) package manager with `bass` package and `gitstatus`
+  theme
+- Downloads fish, zsh, vim, and Hammerspoon configuration files from dotfiles repository
+- Installs terminal and utilities: iTerm2, autojump, vfox, yt-dlp, jq, tbls, go-task, revive
+- Installs system utilities: Jumpcut, Caffeine, Flux, VeraCrypt, xbar, Hammerspoon (with ArrangeDesktop spoon)
+- Installs web browsers: Firefox Developer Edition, Google Chrome
+- Installs chat clients: Slack, Discord, and Zoom
+- Installs JetBrains IDEs: WebStorm, PHPStorm, GoLand, DataGrip
+- Installs MacVim
+- Installs OrbStack for Docker containers
+- Installs PHP 8.5 via shivammathur/php tap
+- Installs gaming platforms: GOG Galaxy, Steam, Battle.net
+- Creates directories: `~/github.com` and `~/Pictures/wallpaper`
 
-#### Date & Time
-
-- Turn on `24-hour time`. 
-
-#### Language & Region
- 
-- Set `First day of week` to `Sunday`.
-- Set `Date format` to `YYYY-MM-DD`.
-
-#### Sharing
-
-- `Local hostname` > `Edit` and provide a better hostname.
-
-### Appearance 
-
-- Set `Appearance` to `Dark`.
-
-### Desktop & Screen Saver
-
-- Add the `~/Pictures/wallpaper` directory to the `Folders` list and select it.
-- Check `Change picture` and set the drop-down to`Every 30 minutes`. Repeat for each monitor attached.
-- Check `Random Order`. Repeat for each monitor attached.
-
-### Desktop & Dock
-
-- Adjust `Size` to feel comfortable based on the screen size.
-- Set `Minimize windows using` to `Scale effect`.
-- Turn off `Automatically hide and show the Dock`.
-- Turn off `Show recent applications in Dock`.
-
-### Control Center
-
-- Set `Bluetooth` to `Show in Menu Bar`.
-- Set `Focus` to `Always Show in Menu Bar`.
-- Turn on `Battery > Show Percentage`.
-- Set `Menu Bar Only > Spotlight` to `Don't Show in Menu Bar`.
-- Set `Menu Bar Only > Siri` to `Don't Show in Menu Bar`.
-- Turn on `Menu Bar Only > Clock > Clock Options > Use a 24-hour clock`.
-
-### Siri & Spotlight
-
-- Turn off `Ask Siri`.
-- Uncheck all the items under `Spotlight`.
-
-### Wi-Fi
-
-- Click the `Details` button next to the desired network(s) and go to the `DNS` entry.
-  - Clear out any existing entries in `DNS Servers`.
-  - Add these DNS servers instead in this order:
-    - `1.1.1.1`
-    - `8.8.8.8`
-    - `8.8.4.4`
-  
-## Installation Script
-
-```
-./setup-my-mac.sh
-```
-
-This `bash` script performs the following tasks in order:
-- Install [Homebrew](https://brew.sh/).
-- Use Homebrew to automatically install various software you would otherwise have to manually install (see `Brewfile` for list).
-- Setup fish shell to be the default shell.
-- Install the [oh-my-fish](https://github.com/oh-my-fish/oh-my-fish) package manager.
-- Use oh-my-fish to install any fish shell packages and the `gitstatus` theme.
-- Create the directories `~/github.com`, `~/Pictures/wallpapers`.
-- Remind me of any other software I need to manually download and install.
-- Use [chezmoi](https://www.chezmoi.io) to install dotfiles and configuration files.
-
-The script endeavors to only perform a step if necessary. e.g., It attempts to detect already installed software to
-prevent trying to inst all it again.
-
-
-## What I Use
-
-### Utilities
-
-|                            Name                             | Description                                                                                                    |                                            Installation                                            |
-|:-----------------------------------------------------------:|----------------------------------------------------------------------------------------------------------------|:--------------------------------------------------------------------------------------------------:|
-|                [Homebrew](https://brew.sh/)                 | OS X package manager used to install software                                                                  | See latest instructions on homepage. `setup-my-mac.sh` has those instructions as of last check-in. |
-|         [wget](https://www.gnu.org/software/wget/)          | Utility for retrieving files via HTTPS, etc.                                                                   |                                              Homebrew                                              |
-|        [autojump](https://github.com/wting/autojump)        | Utility for quickly changing to previously visited directories                                                 |                                              Homebrew                                              |
-|    [youtube-dl](https://ytdl-org.github.io/youtube-dl/)     | Utility for downloading videos from YouTube and other streaming sites                                          |                                              Homebrew                                              |
-|       [ssh-copy-id](https://www.ssh.com/ssh/copy-id)        | Utility for installing SSH keys on a server                                                                    |                                              Homebrew                                              |
-|         [Jumpcut](https://github.com/snark/jumpcut)         | Clipboard manager                                                                                              |                                           Homebrew Cask                                            |
-| [Caffeine](https://intelliscapesolutions.com/apps/caffeine) | Prevents your Mac from automatically going to sleep                                                            |                                           Homebrew Cask                                            |
-|     [VeraCrypt](https://www.veracrypt.fr/en/Home.html)      | Disk encryption software                                                                                       |                                           Homebrew Cask                                            |
-|            [LastPass](https://www.lastpass.com/)            | Password manager                                                                                               |                                           Homebrew Cask                                            |
-|         [FileZilla](https://filezilla-project.org/)         | FTP client                                                                                                     |                                               Manual                                               |
-|              [f.lux](https://justgetflux.com/)              | Adjust the screen colors based on time of day                                                                  |                                           Homebrew Cask                                            |
-|       [MacVIM](https://macvim-dev.github.io/macvim/)        | Text editor                                                                                                    |                                           Homebrew Cask                                            |
-|                [xbar](https://xbarapp.com/)                 | Put the output of a script into your menu bar                                                                  |                                           Homebrew Cask                                            |
-|         [iCalBuddy](https://hasseg.org/icalBuddy/)          | Command-line utility that can be used to get lists of events and tasks/to-do's from the OS X calendar database |                                              Homebrew                                              |
-|           [rbenv](https://github.com/rbenv/rbenv)           | Manage installed versions of Ruby on your machine                                                              |                                              Homebrew                                              |
-|         [Hammerspoon](https://www.hammerspoon.org/)         | LUA based automation tool                                                                                      |                                           Homebrew Cask                                            |
-|              [chezmoi](https://www.chezmoi.io)              | Manage your dotfiles across multiple diverse machines, securely.                                               |                                              Homebrew                                              |
-
-### Alternative Terminals, Shells, Fonts
-
-|                           Name                            | Description                                                                            |                                            Installation                                            |
-|:---------------------------------------------------------:|----------------------------------------------------------------------------------------|:--------------------------------------------------------------------------------------------------:|
-|               [iTerm2](http://iterm2.com/)                | My preferred replacement for the OS X terminal program                                 |                                           Homebrew Cask                                            |
-|           [fish shell](https://fishshell.com/)            | My preferred shell these days                                                          |                                              Homebrew                                              |
-|  [oh-my-fish](https://github.com/oh-my-fish/oh-my-fish)   | Package manager for fish shell used to install themes and fish shell related utilities | See latest instructions on homepage. `setup-my-mac.sh` has those instructions as of last check-in. |
-| [JetBrains Mono Font](https://www.jetbrains.com/lp/mono/) | Programmer friendly font                                                               |                                           Homebrew Cask                                            |
-
-### Programming IDEs
-
-|                           Name                           | Description                                  | Installation |
-|:--------------------------------------------------------:|----------------------------------------------|:------------:|
-|     [PHPStorm](https://www.jetbrains.com/phpstorm/)      | JetBrains IDE for PHP development            |    Manual    |
-|         [GoLand](https://www.jetbrains.com/go/)          | JetBrains IDE for Go development             |    Manual    |
-|     [WebStorm](https://www.jetbrains.com/webstorm/)      | JetBrains IDE for JavaScript development     |    Manual    |
-|     [DataGrip](https://www.jetbrains.com/datagrip/)      | JetBrains IDE for SQL / database development |    Manual    |
-| [XCode](https://apps.apple.com/us/app/xcode/id497799835) | Apple development                            |  App Store   |
-
-### Web Browsers
-
-|                                     Name                                      | Description                                  | Installation  |
-|:-----------------------------------------------------------------------------:|----------------------------------------------|:-------------:|
-| [Firefox Developer Edition](https://www.mozilla.org/en-US/firefox/developer/) | Version of Firefox geared towards developers | Homebrew Cask |
-
-### Chat & Social Media
-
-|                Name                | Description    | Installation  |
-|:----------------------------------:|----------------|:-------------:|
-|    [Slack](https://slack.com/)     |                |   App Store   |
-|  [Discord](https://discord.com/)   |                | Homebrew Cask |
-| [Tweeten](https://tweetenapp.com/) | Twitter client | Homebrew Cask |
-
-### Entertainment
-
-|                                 Name                                 | Description                     | Installation  |
-|:--------------------------------------------------------------------:|---------------------------------|:-------------:|
-| [Battle.net](https://www.blizzard.com/en-us/apps/battle.net/desktop) | Blizzard gaming client          |    Manual     |
-|               [Steam](https://store.steampowered.com/)               | Platform for a variety of games | Homebrew Cask |
-|               [GOG Galaxy](https://www.gog.com/galaxy)               | Platform for older games        | Homebrew Cask |
-|            [VLC](https://www.videolan.org/vlc/index.html)            | Media player                    | Homebrew Cask |
-
-### Finance
-
-|                                     Name                                      | Description                      | Installation |
-|:-----------------------------------------------------------------------------:|----------------------------------|:------------:|
-| [Quicken Deluxe](https://www.quicken.com/personal-finance/quicken-deluxe-mac) | Keep track of financial accounts |    Manual    |
-|        [H&R Block Tax Software](https://www.hrblock.com/tax-software/)        | Tax preparation & filing         |    Manual    |
+The script detects already installed software and skips reinstallation to prevent errors and save time.
