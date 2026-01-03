@@ -54,6 +54,17 @@ function fileExists() {
   return 0
 }
 
+function installRosetta() {
+  if /usr/bin/pgrep -q oahd; then
+    echo "✅ Rosetta 2 is already installed! Skipping..."
+    return
+  fi
+
+  echo "🛠  Installing Rosetta 2..."
+  softwareupdate --install-rosetta --agree-to-license
+  echo "✅ Rosetta 2 installed!"
+}
+
 function installHomebrew() {
   if isInstalled "brew"; then
     echo "✅ Homebrew is already installed! Skipping..."
@@ -63,6 +74,10 @@ function installHomebrew() {
   echo "🛠  Installing Homebrew..."
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   echo "✅ Homebrew installed!"
+
+  # Add Homebrew to PATH for the current session
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+  echo "✅ Homebrew added to PATH"
 }
 
 function installHomebrewFormula() {
@@ -117,6 +132,8 @@ printf "\n🛠 🛠  🧑‍💻 Setup your macOS machine 🧑‍💻 🛠 🛠\
 
 detectOS
 
+installRosetta
+
 installHomebrew
 
 ### Fonts ###
@@ -162,7 +179,9 @@ if  [[ -d "$userdir/.local/share/omf" ]]; then
   echo "✅ oh-my-fish is already installed! Skipping..."
 else
   echo "🛠 Installing oh-my-fish..."
-  curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
+  curl -sL https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install > /tmp/omf-install
+  fish /tmp/omf-install --noninteractive
+  rm /tmp/omf-install
   echo "✅ oh-my-fish installed!"
 fi
 
@@ -210,15 +229,16 @@ installHomebrewCask "jumpcut" "Jumpcut"
 installHomebrewCask "caffeine" "Caffeine"
 installHomebrewCask "flux-app" "Flux"
 installHomebrewCask "veracrypt" "VeraCrypt"
+#installHomebrewCask "logi-options+" "logioptionsplus"
 
 installHomebrewCask "xbar" "xbar"
-if [[ -d "$userdir/.xbar" ]]; then
-  echo "✅ $userdir/.xbar directory already exists! Skipping..."
-else
-  echo "🛠  Creating $userdir/.xbar directory..."
-  ln -s ~/Library/Application\ Support/xbar/plugins ~/.xbar
-  echo "✅ $userdir/.xbar directory created!"
-fi
+#if [[ -d "$userdir/.xbar" ]]; then
+#  echo "✅ $userdir/.xbar directory already exists! Skipping..."
+#else
+#  echo "🛠  Creating $userdir/.xbar directory..."
+#  ln -s ~/Library/Application\ Support/xbar/plugins ~/.xbar
+#  echo "✅ $userdir/.xbar directory created!"
+#fi
 
 installHomebrewCask "hammerspoon" "Hammerspoon"
 createDirectory "$userdir/.hammerspoon/Spoons"
@@ -241,6 +261,7 @@ installHomebrewCask "google-chrome" "Google Chrome"
 
 installHomebrewCask "slack" "Slack"
 installHomebrewCask "discord" "Discord"
+installHomebrewCask "zoom" "zoom.us"
 
 ### IDEs ###
 
