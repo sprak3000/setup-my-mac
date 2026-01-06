@@ -46,6 +46,12 @@
 
 - **Disable:**
   - `Show Widgets On Desktop`.
+ 
+### Windows
+
+- **Disable:**
+  - `Drag windows to left or right edge of screen to tile`
+  - `Drag windows to menu bar to fill screen`
 
 ## Spotlight
 
